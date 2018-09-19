@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>Vous étes connéctés</h2>
+
+    <p>Bonjour</p>
+
+    <p><a href="{{ path('etudiant_page') }}">Accéder à l'espace etudiant</a></p>
+    <p><a href="{{ path('admin_page') }}">Accéder à l'espace admin</a></p>
+    <p><a href="{{ path('particulier_page') }}">Accéder à l'espace particulier</a></p>
+    <p><a href="{{ path('professionnel_page') }}">Accéder à l'espace professionnel</a></p>
+
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Listes des Locations{% endblock %}
+
+{% block body %}
+    {% for location in locations %}
+        <h3 class="card-title">{{ location.titre }}</h3>
+        <img class="card-img-top" src="{{ asset(location.photo) }}" height="150" width="150">
+        <h5 class="card-title">{{ location.surface }} m²</h5>
+        <h5 class="card-title">{{ location.piece }} piéces - {{ location.region }} {{ location.adresse }}</h5>
+
+        <a href="#" class="btn btn-primary">lire ...  </a>
+
+    {% endfor %}
+
+
+{% endblock %}

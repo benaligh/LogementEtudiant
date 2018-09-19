@@ -2,10 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
+use AppBundle\Form\RegistreEtdType;
+use AppBundle\Form\RegistreParticulierType;
+use AppBundle\Form\RegistreProfessionnelType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
- /**commentaire**/
+
 class DefaultController extends Controller
 {
     /**

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}deposer mon annonce{% endblock %}
+
+{% block body %}
+<h1>DEPOSER MON ANNONCE</h1>
+
+    {{ form_start(form, {'method': 'post', 'action': path('deposeAnnoce')}) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+{% endblock %}
+

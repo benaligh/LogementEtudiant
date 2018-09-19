@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    <h2>Inscription Etudiant</h2>
+
+
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('addEtd'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_widget(form) }}
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans }}"/>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
