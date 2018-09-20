@@ -16,8 +16,8 @@ class RegistreProfessionnelType extends AbstractType
         $builder->setAction($options['action'])
             ->add('nomGroupe')
             ->add('adresse')
-            ->add('telephone')
-            ->add('location');
+            ->add('telephone');
+
     }
 
     public function getParent()

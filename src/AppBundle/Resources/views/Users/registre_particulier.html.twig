@@ -5,7 +5,7 @@
     <h2>Inscription Particulier</h2>
 
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    {{ form_start(form, {'method': 'post', 'action': path('addPrt'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
     <div>
         <input type="submit" value="{{ 'registration.submit'|trans }}"/>

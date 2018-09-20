@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,11 +15,18 @@ class RegistreParticulierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->setAction($options['action'])
-                ->add('civilite')
-                ->add('nom')
-                ->add('prenom')
-                ->add('telephone')
-                ->add('location');
+            ->add('civilite', ChoiceType::class, array(
+                'choices' => array(
+                    'M' => "M",
+                    'Mme' => "Mme",
+                    'Mlle' => "Mlle",
+                )
+
+
+            ))
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone');
     }
 
     public function getParent()
@@ -27,8 +35,8 @@ class RegistreParticulierType extends AbstractType
     }
 
     /**
- * {@inheritdoc}
- */
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

@@ -44,7 +44,7 @@ class LocationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
-            return $this->forward('AppBundle:Location:list');
+            return $this->forward('AppBundle:Location:show');
         } else {
             return $this->render('@App/Location/deposeAnnoce.html.twig',
                 array(

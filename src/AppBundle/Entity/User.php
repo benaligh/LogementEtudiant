@@ -24,10 +24,9 @@ class User extends BaseUser
 
     /**
      * @var string
-     * @Assert\NotBlank(message="champs obligatoire")
      * @Assert\Type(type="string",
      *             message="nom ne doit pas contient que des caractéres ")
-     * @Assert\Length(min="5",max="10",
+     * @Assert\Length(min="4",max="10",
      *     minMessage="votre nom doit dépasser 5 caractére",
      *     maxMessage="votre nom ne doit pas dépasser 10 caractére")
      * @ORM\Column(name="nom", type="string", length=50, nullable=true)
@@ -37,10 +36,9 @@ class User extends BaseUser
 
     /**
      * @var string
-     * @Assert\NotBlank(message="champs obligatoire")
      * @Assert\Type(type="string",
      *             message="prénom ne doit pas contient que des caractéres ")
-     * @Assert\Length(min="5",max="10",
+     * @Assert\Length(min="4",max="10",
      *     minMessage="votre prénom doit dépasser 5 caractére",
      *     maxMessage="votre prénom ne doit pas dépasser 10 caractére")
      * @ORM\Column(name="prenom", type="string", length=50, nullable=true)
@@ -60,7 +58,6 @@ class User extends BaseUser
 
     /**
      * @var string
-      * @Assert\NotBlank(message="champs obligatoire")
      * @Assert\Choice({"M","Mme","Mlle"})
      * @ORM\Column(name="civilité", type="string", length=30, nullable=true)
      */
