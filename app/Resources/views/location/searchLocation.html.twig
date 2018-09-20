@@ -1,0 +1,47 @@
+<h1>search by type</h1>
+<form method="POST">
+    <input type="text" name="type">
+    <input type="submit" name="submit" value="Trouver un logement">
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Equipement</th>
+        <th>Etat</th>
+        <th>Piece</th>
+        <th>Surface</th>
+        <th>Datedisp</th>
+        <th>Datepublication</th>
+        <th>Adresse</th>
+        <th>Region</th>
+        <th>Prix</th>
+        <th>Photo</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for location in locations %}
+        <tr>
+            {#<td><a href="{{ path('location_show', { 'id': location.id }) }}">{{ location.id }}</a></td>#}
+
+            <td>{{ location.titre }}</td>
+            <td>{{ location.description }}</td>
+            <td>{{ location.type }}</td>
+            <td>{{ location.equipement }}</td>
+            <td>{{ location.etat }}</td>
+            <td>{{ location.piece }}</td>
+            <td>{{ location.surface }}</td>
+            <td>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</td>
+            <td>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</td>
+            <td>{{ location.adresse }}</td>
+            <td>{{ location.region }}</td>
+            <td>{{ location.prix }}</td>
+            <td>{{ location.photo }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

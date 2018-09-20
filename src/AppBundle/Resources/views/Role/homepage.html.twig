@@ -1,10 +1,17 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <header>
-        <a href="{{ path('location_depose') }}"> Déposer Mon Annonce</a>
+        <p><a href="{{ path('fos_user_security_login') }}">se connecter</a>
+        |
+        <form method="POST">
+            <input type="text" name="type">
+            <input type="submit" name="submit" value="Trouver un logement">
+        </form>
+        |
+            <a href="{{ path('location_depose') }}"> Déposer Mon Annonce</a></p>
     </header>
     <h2>Page d'accueil</h2>
-    <p><a href="{{ path('fos_user_security_login') }}">se connecter</a> </p>
+
     <p> <a href="{{ path('addEtd') }}" > Inscription Etudiant </a> </p>
     <p> <a href="{{ path('addPrt') }}" > Inscription Particulier </a> </p>
     <p> <a href="{{ path('addPrfs') }}" > Inscription Professionnel </a> </p>

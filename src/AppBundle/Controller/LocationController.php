@@ -49,7 +49,7 @@ class LocationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
-             return $this->forward('fos_user.security.controller:loginAction');
+            return $this->forward('fos_user.security.controller:loginAction');
 
         }
 
@@ -76,7 +76,7 @@ class LocationController extends Controller
             $em->persist($location);
             $em->flush();
 
-            return $this->redirectToRoute('location_show', array('id' => $location->getId()));
+            return $this->redirectToRoute('location_index', array('id' => $location->getId()));
         }
 
         return $this->render('location/new.html.twig', array(
@@ -118,10 +118,8 @@ class LocationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('location_edit', array(
-                'location' => $location->getId()
+            return $this->redirectToRoute('location_index');
 
-            ));
         }
 
         return $this->render('location/edit.html.twig', array(
@@ -138,18 +136,41 @@ class LocationController extends Controller
     public function deleteAction(Request $request, Location $location)
     {
 
-        if ($location == null){
+        if ($location == null) {
             return $this->redirectToRoute('location_index');
         }
 
 
-
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($location);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($location);
+        $em->flush();
 
 
         return $this->redirectToRoute('location_index');
     }
 
+
+    /**
+     * @Route("/search", name="location_search")
+     */
+    public function searchLocationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locations = $em->getRepository('AppBundle:Location')->findAll();
+        if ($request->isMethod('POST')) {
+            $type = $request->get('type');
+            $locations = $em->getRepository('AppBundle:Location')->findBy(
+                array(
+                    "type" => $type
+                ));
+        }
+        return $this->render('location/searchLocation.html.twig', array(
+            'locations' => $locations
+        ));
+
+    }
+
+
 }
+
+
