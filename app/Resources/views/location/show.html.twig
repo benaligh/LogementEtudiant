@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Location</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ location.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ location.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ location.description }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ location.type }}</td>
+            </tr>
+            <tr>
+                <th>Equipement</th>
+                <td>{{ location.equipement }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ location.etat }}</td>
+            </tr>
+            <tr>
+                <th>Piece</th>
+                <td>{{ location.piece }}</td>
+            </tr>
+            <tr>
+                <th>Surface</th>
+                <td>{{ location.surface }}</td>
+            </tr>
+            <tr>
+                <th>Datedisp</th>
+                <td>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datepublication</th>
+                <td>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ location.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Region</th>
+                <td>{{ location.region }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ location.prix }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ location.photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('location_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('location_edit', { 'id': location.id }) }}">Edit</a>
+        </li>
+
+    </ul>
+{% endblock %}

@@ -3,17 +3,11 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-
-
-
-
-
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class LocationType extends AbstractType
 {
@@ -22,8 +16,7 @@ class LocationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->setAction($options['action'])
-            ->add('titre')
+        $builder->add('titre')
             ->add('description',TextareaType::class)
             ->add('type', ChoiceType::class, array(
                 'choices' => array(
@@ -33,7 +26,6 @@ class LocationType extends AbstractType
                     'Appartement' => "Appartement",
                 )
             ))
-
             ->add('equipement', ChoiceType::class, array(
                 'choices' => array(
                     'meublé' => "meublé",
@@ -55,8 +47,13 @@ class LocationType extends AbstractType
             ->add('adresse')
             ->add('region')
             ->add('prix')
-            ->add('photo',FileType::class)
-            ->add('Deposer', SubmitType::class);
+            ->add('photo');
+//
+//            ->add('photo',FileType::class, [
+//                'data_class' => null,
+//                'multiple' => true,
+//                'label' => false
+//            ]);
     }
 
     /**

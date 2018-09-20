@@ -3,75 +3,153 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Location;
-use AppBundle\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Location controller.
+ *
+ * @Route("location")
+ */
 class LocationController extends Controller
 {
-
     /**
-     * @Route("/list" ,name="list_locations")
+     * Lists all location entities.
+     *
+     * @Route("/", name="location_index")
+     * @Method("GET")
      */
-    public function showAction()
+    public function indexAction()
     {
-        $repository = $this->getDoctrine()->getRepository('AppBundle:Location');
-        $locations = $repository->findAll();
-        return $this->render('@App/Location/list.html.twig', array(
-            'locations' => $locations
+        $em = $this->getDoctrine()->getManager();
 
+        $locations = $em->getRepository('AppBundle:Location')->findAll();
+
+        return $this->render('location/index.html.twig', array(
+            'locations' => $locations,
         ));
     }
 
 
-
     /**
-     * @Route("/deposeAnnoce",name="deposeAnnoce")
+     * Creates a new location entity.
+     *
+     * @Route("/depose", name="location_depose")
+     * @Method({"GET", "POST"})
      */
-    public function deposeAnnoceAction(Request $request)
+    public function deposeAction(Request $request)
     {
         $location = new Location();
-        $form = $this->createForm(LocationType::class, $location);
+        $form = $this->createForm('AppBundle\Form\LocationType', $location);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['photo']->getData();
-            $newPhotoName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('annonce_photos'), $newPhotoName);
-
-            $location = $form->getData();
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
-            return $this->forward('AppBundle:Location:show');
-        } else {
-            return $this->render('@App/Location/deposeAnnoce.html.twig',
-                array(
-                    'form' => $form->createView()
-                )
-            );
+             return $this->forward('fos_user.security.controller:loginAction');
+
         }
-    }
 
-    /**
-     * @Route("/delete")
-     */
-    public function deleteAction()
-    {
-        return $this->render('AppBundle:Location:delete.html.twig', array(
-            // ...
+        return $this->render('location/depose.html.twig', array(
+            'location' => $location,
+            'form' => $form->createView(),
         ));
     }
 
     /**
-     * @Route("/update")
+     * Creates a new location entity.
+     *
+     * @Route("/new", name="location_new")
+     * @Method({"GET", "POST"})
      */
-    public function updateAction()
+    public function newAction(Request $request)
     {
-        return $this->render('AppBundle:Location:update.html.twig', array(
-            // ...
+        $location = new Location();
+        $form = $this->createForm('AppBundle\Form\LocationType', $location);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($location);
+            $em->flush();
+
+            return $this->redirectToRoute('location_show', array('id' => $location->getId()));
+        }
+
+        return $this->render('location/new.html.twig', array(
+            'location' => $location,
+            'form' => $form->createView(),
         ));
+    }
+
+//    /**
+//     * Finds and displays a location entity.
+//     *
+//     * @Route("/{id},{location}", name="location_show")
+//     * @Method("GET")
+//     */
+//
+//
+//    public function showAction(Location $location)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $location=$em->getRepository('AppBundle:Location')->find($id);
+//        return $this->render('location/location_index.twig', array(
+//            'location' => $location,
+//        ));
+//
+//    }
+
+    /**
+     * @param Request $request
+     * @param Location $location
+     *
+     * @Route("/edit/{location}", name="location_edit")
+     */
+    public function editAction(Request $request, Location $location)
+    {
+        $editForm = $this->createForm('AppBundle\Form\LocationType', $location);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('location_edit', array(
+                'location' => $location->getId()
+
+            ));
+        }
+
+        return $this->render('location/edit.html.twig', array(
+            'edit_form' => $editForm->createView(),
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param Location $location
+     *
+     * @Route("/delete/{location}", name="location_delete")
+     */
+    public function deleteAction(Request $request, Location $location)
+    {
+
+        if ($location == null){
+            return $this->redirectToRoute('location_index');
+        }
+
+
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($location);
+            $em->flush();
+
+
+        return $this->redirectToRoute('location_index');
     }
 
 }
