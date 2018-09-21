@@ -1,5 +1,124 @@
 {% extends 'base.html.twig' %}
+{% block header %}
+    <header>
+        <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+            <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                <div class="row">
+
+                    <div class="navbar-buttons">
+
+                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-align-justify"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--/.navbar-header -->
+
+                <div class="navbar-collapse collapse" id="navigation">
+                    <a class="nav navbar-nav navbar-left" href="#">
+                        <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
+                    </a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown active">
+                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#numberone">CHOISIR LE GROUPE N°1 DU LOGEMENT ÉTUDIANT
+                                    </a>
+                                </li>
+                                <li><a href="#numbertwo"> LES BONNES RAISONS DE LOUER AVEC NOUS
+                                    </a>
+                                </li>
+                                <li><a href="#numberthree">ILS PARLENT DE NOUS </a>
+                                </li>
+                                <li><a href="#numberfour">NOTRE EQUIPE</a>
+                            </ul>
+                        </li>
+                        <li class="dropdown use-yamm yamm-fw">
+                            <a href="#" class="dropdown-toggle"data-toggle="modal" data-target="#login-modal">Connexion</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('fos_user_security_logout')}}" class="" >se déconnecter</a>
+                            </li>
+                        <!-- ========== FULL WIDTH MEGAMENU ================== -->
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+
+                <!-- /#navbar -->
+            </div>
+            <!-- *** NAVBAR END *** -->
+        </div>
+    </header>
+
+
+{% endblock %}
 {% block body %}
-    <h2>Page etudiant</h2>
-    <p><a href="{{ path('fos_user_security_logout') }}">se déconnecter</a> </p>
+    <h1>Locations list</h1>
+    <ul>
+        <li>
+            <a href="{{ path('location_new') }}">Create a new location</a>
+        </li>
+    </ul>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Equipement</th>
+            <th>Etat</th>
+            <th>Piece</th>
+            <th>Surface</th>
+            <th>Datedisp</th>
+            <th>Datepublication</th>
+            <th>Adresse</th>
+            <th>Region</th>
+            <th>Prix</th>
+            <th>Photo</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            <tr>
+                {#<td><a href="{{ path('location_show', { 'id': location.id }) }}">{{ location.id }}</a></td>#}
+                <td>{{ location.id }}</td>
+
+                <td>{{ location.titre }}</td>
+                <td>{{ location.description }}</td>
+                <td>{{ location.type }}</td>
+                <td>{{ location.equipement }}</td>
+                <td>{{ location.etat }}</td>
+                <td>{{ location.piece }}</td>
+                <td>{{ location.surface }}</td>
+                <td>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ location.adresse }}</td>
+                <td>{{ location.region }}</td>
+                <td>{{ location.prix }}</td>
+                <td>{{ location.photo }}</td>
+                <td>
+                    <ul>
+                        {#<li>#}
+                        {#<a href="{{ path('location_show', { 'location': location.id }) }}">show</a>#}
+                        {#</li>#}
+                        <li>
+                            <a href="{{ path('location_edit', { 'location': location.id }) }}">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('location_delete', { 'location': location.id }) }}">delete</a>
+                        </li>
+
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

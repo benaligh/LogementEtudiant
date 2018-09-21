@@ -23,7 +23,7 @@ class RoleController extends Controller
             return $this->render('AppBundle:Role:admin.html.twig');
         }
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_ETUDIANT')) {
-            return $this->render('AppBundle:Role:etudiant.html.twig');
+            return $this->forward('AppBundle:Location:index');
         }
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_PARTICULIER')) {
             return $this->render('AppBundle:Role:particulier.html.twig');

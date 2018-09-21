@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Location controller.
  *
- * @Route("location")
+ * @Route("/location")
  */
 class LocationController extends Controller
 {
