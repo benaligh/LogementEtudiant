@@ -1,21 +1,122 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
-    <h1>Location edit</h1>
+<div id="heading-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1>Edit Annonce</h1>
+                <li>
+                    <a href="{{ path('location_index') }}">Back to the list</a>
+                </li>
+            </div>
+            <div class="col-md-5">
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('location_index') }}">Back to the list</a>
-        </li>
-        {#<li>#}
-            {#{{ form_start(delete_form) }}#}
-                {#<input type="submit" value="Delete">#}
-            {#{{ form_end(delete_form) }}#}
-        {#</li>#}
-    </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    {{ form_start(edit_form) }}
+                    <div class="box clearfix">
+                        <div class="heading">
+                            <h3 class="text-uppercase">Annonce details</h3>
+                        </div>
+                        <form class="form-control">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        {{ form_row(edit_form.titre) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        {{ form_row(edit_form.type) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{ form_row(edit_form.adresse) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{ form_row(edit_form.piece) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group date">
+                                        {{ form_row(edit_form.etat) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+
+                                        {{ form_row(edit_form.equipement) }}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{ form_row(edit_form.surface) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 ">
+                                    {{ form_row(edit_form.region ) }}
+                                </div>
+
+                                <div class="col-sm-3 ">
+                                    {{ form_row(edit_form.photo ) }}
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 ">
+
+                                    {{ form_row(edit_form.dateDisp ) }}
+                                </div>
+
+                                <div class="col-sm-4 ">
+                                    {{ form_row(edit_form.datePublication ) }}
+                                </div>
+                                <div class="col-sm-4 ">
+                                    {{ form_row(edit_form.prix ) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ form_row(edit_form.description ) }}
+                            </div>
+                            <div>
+                                <div class="col-sm-13 text-center">
+                                    <input type="submit" class=" btn btn-template-main" value="Edit" />
+
+                                </div>
+
+                            </div>
+                            {{ form_end(edit_form) }}
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
 {% endblock %}

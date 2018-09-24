@@ -1,76 +1,208 @@
 {% extends 'base.html.twig' %}
+{% block header %}
+    <header>
+        <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
 
+            <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                <div class="row">
+
+                    <div class="navbar-buttons">
+
+                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse"
+                                data-target="#navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-align-justify"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--/.navbar-header -->
+
+                <div class="navbar-collapse collapse" id="navigation">
+                    <a class="nav navbar-nav navbar-left" href="#">
+                        <img src="{{ asset("img/colocation.jpg") }}" alt="Colocation logo" style="width:30%;"
+                             class="hidden-xs hidden-sm">
+                    </a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown active">
+                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b
+                                        class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#numberone">CHOISIR LE GROUPE N°1 DU LOGEMENT ÉTUDIANT
+                                    </a>
+                                </li>
+                                <li><a href="#numbertwo"> LES BONNES RAISONS DE LOUER AVEC NOUS
+                                    </a>
+                                </li>
+                                <li><a href="#numberthree">ILS PARLENT DE NOUS </a>
+                                </li>
+                                <li><a href="#numberfour">NOTRE EQUIPE</a>
+                            </ul>
+                        </li>
+                        <li class="dropdown use-yamm yamm-fw">
+                            <a href="{{ path('location_new') }}">Déposer une annonce</a>
+
+
+                        </li>
+                        <li class="">
+                            <a href="{{ path('fos_user_security_logout') }}" class="">se déconnecter</a>
+                        </li>
+                        <!-- ========== FULL WIDTH MEGAMENU ================== -->
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+
+                <!-- /#navbar -->
+            </div>
+            <!-- *** NAVBAR END *** -->
+        </div>
+    </header>
+
+{% endblock %}
 {% block body %}
-    <h1>Location</h1>
+    <div id="content">
+        <div id="heading-breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-7">
+                        <form method="POST">
+                            <input type="text" name="type">
+                            <input class="btn btn-info" type="submit" name="submit" value="Trouver un logement">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="">
+                <div class="col-md-9">
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ location.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ location.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ location.description }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ location.type }}</td>
-            </tr>
-            <tr>
-                <th>Equipement</th>
-                <td>{{ location.equipement }}</td>
-            </tr>
-            <tr>
-                <th>Etat</th>
-                <td>{{ location.etat }}</td>
-            </tr>
-            <tr>
-                <th>Piece</th>
-                <td>{{ location.piece }}</td>
-            </tr>
-            <tr>
-                <th>Surface</th>
-                <td>{{ location.surface }}</td>
-            </tr>
-            <tr>
-                <th>Datedisp</th>
-                <td>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Datepublication</th>
-                <td>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ location.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Region</th>
-                <td>{{ location.region }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ location.prix }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ location.photo }}</td>
-            </tr>
-        </tbody>
-    </table>
+                    <p class="lead">{{ location.description }}.
+                    </p>
+                    <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">Scroll for more details
+                          </a>
+                    </p>
 
-    <ul>
-        <li>
-            <a href="{{ path('location_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('location_edit', { 'id': location.id }) }}">Edit</a>
-        </li>
+                    <div class="row" id="productMain">
+                        <div class="col-sm-6">
+                            <div id="image">
+                                <img src={{ asset('img/pro.jpg') }} alt="" class="img-responsive">
 
-    </ul>
+                            </div>
+
+                            <div class="ribbon new">
+                                <div class="theribbon " style="width: max-content">{{ location.region }}</div>
+                                <div class="ribbon-background"></div>
+                            </div>
+                            <!-- /.ribbon -->
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="box">
+
+                                <form>
+                                    <div class="sizes">
+
+                                        <h3>{{ location.titre }}</h3>
+
+                                    </div>
+
+                                    <p class="price" >{{ location.prix }}T.n.d</p>
+
+
+                                    <p class="text-center">
+                                        <button type="submit" class="btn btn-template-main"><i
+                                                    class="fa fa-heart-o"></i> Ajouter au favoris
+                                        </button>
+
+                                    </p>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="box" id="details">
+                        <p>
+
+                    <h4>Product details</h4>
+                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        <i class="fa fa-bed" aria-hidden="true"></i>
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                        <i class="fa fa-asterisk" aria-hidden="true"></i>
+
+                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+
+                        <li >{{ location.adresse }}</li>
+                                <li>{{ location.surface }}m2</li>
+                    <h4>Material & care</h4>
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    <ul>
+                        <li>
+                            {{ location.type }} - {{ location.etat }}</li>
+                        <li>{{ location.equipement }}- {{ location.piece }} piéce/s</li>
+                    </ul>
+                    <h4>Size & Fit</h4>
+                    <ul>
+                        <li>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</li>
+                        <li>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</li>
+
+                    </ul>
+
+                    <blockquote>
+                        <p><em>Define style this season with Armani's new range of trendy tops, crafted with intricate
+                                details. Create a chic statement look by teaming this lace number with skinny jeans and
+                                pumps.</em>
+                        </p>
+                    </blockquote>
+                </div>
+
+                </div>
+
+            </div>
+            <!-- /.col-md-9 -->
+
+
+        <!-- *** RIGHT COLUMN ***
+_________________________________________________________ -->
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***
+_________________________________________________________ -->
+            <div class="panel panel-default sidebar-menu">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Mon section</h3>
+                </div>
+
+                <div class="panel-body">
+
+                    <ul class="nav nav-pills nav-stacked">
+                        <li>
+                            <a href="{{ path('location_index') }}"><i class="fa fa-list"></i> Mes annonces</a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fa fa-heart"></i> Mes favoris</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
+                        </li>
+                        <li class="active">
+                            <a href="{{ path('location_search') }}"><i class="fa fa-search"></i> Rechercher une
+                                Co/Location</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+            <!-- /.col-md-3 -->
+
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <!-- *** RIGHT COLUMN END *** -->
+    </div>
+    </div>
+    </div>
 {% endblock %}

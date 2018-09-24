@@ -20,16 +20,16 @@ class RoleController extends Controller
     public function indexAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_ADMIN')) {
-            return $this->render('AppBundle:Role:admin.html.twig');
+            return $this->forward('AppBundle:Location:index');
         }
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_ETUDIANT')) {
             return $this->forward('AppBundle:Location:index');
         }
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_PARTICULIER')) {
-            return $this->render('AppBundle:Role:particulier.html.twig');
+            return $this->forward('AppBundle:Location:index');
         }
-        if ($this->get('security.authorization_checker')->IsGranted('ROLE_PROFESSIONNEL')) {
-            return $this->render('AppBundle:Role:professionnel.html.twig');
+        if ($this->get('security.authorization_checker')->IsGranted('ROLE_PRO')) {
+            return $this->forward('AppBundle:Location:index');
         } else {
             return $this->render('AppBundle:Role:homepage.html.twig');
 

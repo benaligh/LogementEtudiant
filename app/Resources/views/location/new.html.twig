@@ -1,16 +1,174 @@
 {% extends 'base.html.twig' %}
+{% block header %}
+    <header>
+        <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
 
+            <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                <div class="row">
+
+                    <div class="navbar-buttons">
+
+                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-align-justify"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--/.navbar-header -->
+
+                <div class="navbar-collapse collapse" id="navigation">
+                    <a class="nav navbar-nav navbar-left" href="#">
+                        <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
+                    </a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown active">
+                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#numberone">CHOISIR LE GROUPE N°1 DU LOGEMENT ÉTUDIANT
+                                    </a>
+                                </li>
+                                <li><a href="#numbertwo"> LES BONNES RAISONS DE LOUER AVEC NOUS
+                                    </a>
+                                </li>
+                                <li><a href="#numberthree">ILS PARLENT DE NOUS </a>
+                                </li>
+                                <li><a href="#numberfour">NOTRE EQUIPE</a>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a name="<<Back to the list" href="{{ path('location_index') }}"> Back to the list  </a>
+
+                        </li>
+                        <li class="">
+                            <a href="{{ path('fos_user_security_logout')}}" class="" >se déconnecter</a>
+                        </li>
+                        <!-- ========== FULL WIDTH MEGAMENU ================== -->
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+
+                <!-- /#navbar -->
+            </div>
+            <!-- *** NAVBAR END *** -->
+        </div>
+    </header>
+{% endblock %}
 {% block body %}
-    <h1>Location creation</h1>
+    <div id="heading-breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1>New Annonce</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                </div>
+                <div class="col-md-5">
 
-    <ul>
-        <li>
-            <a href="{{ path('location_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        {{ form_start(form) }}
+                        <div class="box clearfix">
+                            <div class="heading">
+                                <h3 class="text-uppercase">Annonce details</h3>
+                            </div>
+                            <form class="form-control">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            {{ form_row(form.titre) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            {{ form_row(form.type) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.adresse) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.piece) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group date">
+                                            {{ form_row(form.etat) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+
+                                            {{ form_row(form.equipement) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            {{ form_row(form.surface) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 ">
+                                        {{ form_row(form.region ) }}
+                                    </div>
+
+                                    <div class="col-sm-3 ">
+                                        {{ form_row(form.photo ) }}
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 ">
+
+                                        {{ form_row(form.dateDisp ) }}
+                                    </div>
+
+                                    <div class="col-sm-4 ">
+                                        {{ form_row(form.datePublication ) }}
+                                    </div>
+                                    <div class="col-sm-4 ">
+                                        {{ form_row(form.prix ) }}
+                                    </div>
+                                </div>
+                            <div class="row">
+                                    {{ form_row(form.description ) }}
+                            </div>
+                                <div>
+                                    <div class="col-sm-13 text-center">
+                                        <input type="submit" class=" btn btn-template-main" value="Create" />
+
+                                    </div>
+
+                                </div>
+                                {{ form_end(form) }}
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- /#content -->
 {% endblock %}

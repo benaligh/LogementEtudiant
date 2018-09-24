@@ -30,7 +30,7 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/etudiant/, role: ROLE_ETUDIANT }
         - { path: ^/particulier/, role: ROLE_PARTICULIER}
-        - { path: ^/professionnel/, role: ROLEPROFESSIONNEL}
+        - { path: ^/professionnel/, role: ROLE_PRO}
 
 
 

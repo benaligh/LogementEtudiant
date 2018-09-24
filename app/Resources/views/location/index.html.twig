@@ -37,7 +37,7 @@
                             </ul>
                         </li>
                         <li class="dropdown use-yamm yamm-fw">
-                            <a href="{{ path('location_new') }}">Create a new location</a>
+                            <a href="{{ path('location_new') }}">Déposer une annonce</a>
 
 
                         </li>
@@ -60,46 +60,46 @@
     <!-- *** LEFT COLUMN ***
 _________________________________________________________ -->
 <div id="content">
-    <div class="col-md-12">
-        <div class="text-muted lead bar background-pentagon no-mb text-center ">
+    <div id="heading-breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1>Mes annonces</h1>
+                </div>
 
-            In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.
+            </div>
         </div>
     </div>
     <div class="container ">
-
-        <div class="lead ">
-
-
-
+        <div class=" ">
         <div class="col-md-9">
         <div class="row products ">
             {% for location in locations %}
-            <div class="col-md-6 col-sm-8">
+            <div class="col-md-4 col-sm-6">
                 <div class="product">
                     <div class="image">
-                            <img src="{{ asset(location.photo) }}" alt="" class="img-responsive image1">
+                        <img src="{{asset(location.photo|default("img/blog-medium.jpg"))}}" alt="" class="img-responsive image1">
                     </div>
+
                     <!-- /.image -->
                     <div class="text">
                         <h3>{{ location.titre }}</h3>
                         <p class="price">{{ location.description }}</p>
-                        <p>{{ location.type }} {{ location.etat }}</p>
-                        <p>{{ location.equipement }} {{ location.piece }}</p>
-                        <p>{{ location.surface }}</p>
+                        <p>{{ location.type }} - {{ location.etat }}</p>
+                        <p>{{ location.equipement }}- {{ location.piece }} piéce/s</p>
+                        <p>{{ location.surface }}m2</p>
                         <p>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</p>
                         <p>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</p>
                         <p>{{ location.adresse }}</p>
                         <div class="ribbon sale">
-                            <div class="theribbon">{{ location.prix }}</div>
+                            <div class="theribbon" style="width: max-content">{{ location.prix }}</div>
                             <div class="ribbon-background"></div>
                         </div>
 
                         <div class="ribbon new">
-                            <div class="theribbon">{{ location.region }}</div>
+                            <div class="theribbon" style="width: max-content">{{ location.region }}</div>
                             <div class="ribbon-background"></div>
                         </div>
-
                             <a class="btn btn-default" href="{{ path('location_edit', { 'location': location.id }) }}">edit</a>
                             <a  class="btn btn-template-main" href="{{ path('location_delete', { 'location': location.id }) }}">delete</a>
 
@@ -113,6 +113,67 @@ _________________________________________________________ -->
         </div>
     </div>
         </div>
+        <!-- *** RIGHT COLUMN ***
+_________________________________________________________ -->
+
+        <div class="col-md-3">
+            <!-- *** CUSTOMER MENU ***
+_________________________________________________________ -->
+            <div class="panel panel-default sidebar-menu">
+
+                <div class="panel-heading">
+                    <h3 class="panel-title">Mon section</h3>
+                </div>
+                {% if  is_granted('ROLE_ETUDIANT') %}
+                <div class="panel-body">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fa fa-heart"></i> Mes favoris</a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fa fa-user"></i> Mon profile</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Rechercher une Co/Location</a>
+                        </li>
+
+                    </ul>
+                </div>
+       {% endif %}
+                {% if  is_granted('ROLE_PARTICULIER') %}
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active">
+                                <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
+                            </li>
+                            <li>
+                                <a href=""><i class="fa fa-user"></i> Mon profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if  is_granted('ROLE_PRO') %}
+                    <div class="panel-body">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active">
+                                <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
+                            </li>
+                            <li>
+                                <a href=""><i class="fa fa-user"></i> Mon profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- /.col-md-3 -->
+
+            <!-- *** CUSTOMER MENU END *** -->
+        </div>
+
+        <!-- *** RIGHT COLUMN END *** -->
     </div>
 </div>
 {% endblock %}

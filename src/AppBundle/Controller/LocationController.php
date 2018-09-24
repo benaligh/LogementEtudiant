@@ -85,23 +85,23 @@ class LocationController extends Controller
         ));
     }
 
-//    /**
-//     * Finds and displays a location entity.
-//     *
-//     * @Route("/{id},{location}", name="location_show")
-//     * @Method("GET")
-//     */
-//
-//
-//    public function showAction(Location $location)
-//    {
-//        $em = $this->getDoctrine()->getManager();
-//        $location=$em->getRepository('AppBundle:Location')->find($id);
-//        return $this->render('location/location_index.twig', array(
-//            'location' => $location,
-//        ));
-//
-//    }
+    /**
+    * Finds and displays a location entity.
+    *
+    * @Route("show/{location}", name="location_show")
+   * @Method("GET")
+   */
+
+
+    public function showAction(Request $request, Location $location)
+    {
+       $em = $this->getDoctrine()->getManager();
+       $location=$em->getRepository('AppBundle:Location')->find($location);
+        return $this->render('location/show.html.twig', array(
+            'location' => $location,
+        ));
+
+    }
 
     /**
      * @param Request $request
@@ -148,8 +148,6 @@ class LocationController extends Controller
 
         return $this->redirectToRoute('location_index');
     }
-
-
     /**
      * @Route("/search", name="location_search")
      */
