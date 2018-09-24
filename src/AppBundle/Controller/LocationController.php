@@ -21,17 +21,54 @@ class LocationController extends Controller
      * @Route("/", name="location_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request )
     {
         $em = $this->getDoctrine()->getManager();
 
         $locations = $em->getRepository('AppBundle:Location')->findAll();
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $locations,
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 2)
+        );
 
         return $this->render('location/index.html.twig', array(
-            'locations' => $locations,
+            'locations' => $result,
         ));
+
     }
 
+
+    /**
+     * Lists all location entities page visitors.
+     *
+     * @Route("/annonces", name="location_annonces")
+     * @Method("GET")
+     */
+    public function AnnonceAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locations = $em->getRepository('AppBundle:Location')->findAll();
+
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $locations,
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 3)
+        );
+
+
+        return $this->render('location/annonceVisitor.html.twig', array(
+            'locations' => $result,
+        ));
+    }
 
     /**
      * Creates a new location entity.
@@ -46,6 +83,10 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['photo']->getData();
+            $newImgName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('annonce_Photos'), $newImgName);
+            $location->setPhoto($newImgName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
@@ -72,6 +113,12 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $conecté=$this->getUser();
+            $location->setUser($conecté);
+            $file = $form['photo']->getData();
+            $newImgName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('annonce_Photos'), $newImgName);
+            $location->setPhoto($newImgName);
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
@@ -162,12 +209,94 @@ class LocationController extends Controller
                     "type" => $type
                 ));
         }
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $locations,
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 2)
+        );
         return $this->render('location/searchLocation.html.twig', array(
-            'locations' => $locations
+            'locations' => $result
         ));
 
     }
 
+
+//    /**
+//     * @Route("/{page}", defaults={"page" = 1}, name="filter")
+//     * @Route("/")
+//     */
+//    public function FilterAction(Request $request, $page)
+//    {
+//        $locations = new Location();
+//
+//        $form = $this->createForm(LocationType::class, $locations);
+//
+//        $session = $this->getRequest()->getSession();
+//
+//        if ($session->get('dql') == null) {
+//            $session->set('dql', "SELECT a FROM AppBundle:Location a WHERE a.is_active = true");
+//        }
+//
+//        if ($request->isMethod('POST')) {
+//            $form->bind($request);
+//
+//            if ($form->isValid()) {
+//                $dql = "SELECT a FROM AppBundle:Location a WHERE a.is_active = true";
+//                $type = $locations->getType();
+//                $equipement = $locations->getEquipement();
+//                $etat = $locations->getEtat();
+//                $piece = $locations->getPiece();
+//                $surface = $locations->getSurface();
+//                $DateDisp = $locations->getDateDisp();
+//                $region = $locations->getRegion();
+//
+//                if (isset($type)) {
+//                    $dql .= " AND a.type = '" . $locations->getType() . "'";
+//                }
+//                if (isset($equipement)) {
+//                    $dql .= " AND a.equipement = '" . $locations->getEquipement() . "'";
+//                }
+//                if (isset($etat)) {
+//                    $dql .= " AND a.etat = '" . $locations->getEtat() . "'";
+//                }
+//                if (isset($piece)) {
+//                    $dql .= " AND a.piece = '" . $locations->getPiece() . "'";
+//                }
+//                if (isset($surface)) {
+//                    $dql .= " AND a.surface = '" . $locations->getSurface() . "'";
+//                }
+//                if (isset($DateDisp)) {
+//                    $dql .= " AND a.DateDisp = '" . $locations->getDateDisp() . "'";
+//                }
+//                if (isset($region)) {
+//                    $dql .= " AND a.region = '" . $locations->getRegion() . "'";
+//                }
+//
+//                $session->set('dql', $dql);
+//            }
+//        }
+//
+//        $em = $this->get('doctrine.orm.entity_manager');
+//
+//        $query = $em->createQuery($session->get('dql'));
+//
+//        $paginator = $this->get('knp_paginator');
+//        $pagination = $paginator->paginate(
+//            $query,
+//            $this->get('request')->query->get('page', $page),
+//            5
+//        );
+//
+//        return $this->render('AppBundle:Role:homepage.html.twig', array(
+//                'form' => $form->createView(),
+//                'pagination' => $pagination
+//            )
+//        );
+//    }
 
 }
 

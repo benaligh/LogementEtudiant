@@ -47,13 +47,11 @@ class LocationType extends AbstractType
             ->add('adresse')
             ->add('region')
             ->add('prix')
-            ->add('photo');
-//
-//            ->add('photo',FileType::class, [
-//                'data_class' => null,
-//                'multiple' => true,
-//                'label' => false
-//            ]);
+            ->add('photo',FileType::class, [
+                'data_class' => null,
+//              'multiple' => true,
+                'label' => false
+            ]);
     }
 
     /**

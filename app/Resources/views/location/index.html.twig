@@ -78,7 +78,8 @@ _________________________________________________________ -->
             <div class="col-md-4 col-sm-6">
                 <div class="product">
                     <div class="image">
-                        <img src="{{asset(location.photo|default("img/blog-medium.jpg"))}}" alt="" class="img-responsive image1">
+                        <img src="{{ asset('uploads/annonce/'~ location.photo ) }}"class="img-responsive image1">
+
                     </div>
 
                     <!-- /.image -->
@@ -110,8 +111,14 @@ _________________________________________________________ -->
                 <!-- /.product -->
             </div>
             {% endfor %}
+            {# display navigation #}
+
         </div>
+            <div class="navigation text-center">
+                {{ knp_pagination_render(locations) }}
+            </div>
     </div>
+
         </div>
         <!-- *** RIGHT COLUMN ***
 _________________________________________________________ -->

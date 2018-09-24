@@ -85,14 +85,19 @@ class User extends BaseUser
      */
     private $adresse;
 
+//
 
 
 
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
+
+//    /**
+//     * User constructor.
+//     */
+//    public function __construct()
+//    {
+//        parent::__construct();
+//        // your own logic
+//    }
 
 
     /**
@@ -261,6 +266,10 @@ class User extends BaseUser
     public function getAdresse()
     {
         return $this->adresse;
+    }
+    public function __toString()
+    {
+        return parent::__toString($this->id);
     }
 
 

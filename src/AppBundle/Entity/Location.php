@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Location
@@ -23,56 +25,56 @@ class Location
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="titre", type="string", length=150)
      */
     private $titre;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="type", type="string", length=50)
      */
     private $type;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="equipement", type="string", length=50)
      */
     private $equipement;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="etat", type="string", length=50)
      */
     private $etat;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="piece", type="integer")
      */
     private $piece;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="surface", type="float")
+     * @var int
+     * @Assert\NotBlank(message="champs obligatoire")
+     * @ORM\Column(name="surface", type="integer")
      */
     private $surface;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="date_disp", type="date")
      */
     private $dateDisp;
@@ -86,21 +88,21 @@ class Location
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="adresse", type="string", length=200)
      */
     private $adresse;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="region", type="string", length=30)
      */
     private $region;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="prix", type="integer")
      */
     private $prix;
@@ -108,9 +110,33 @@ class Location
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=255)
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
      */
     private $photo;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User"))
+     */
+    private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
 
 
     /**
