@@ -74,7 +74,9 @@ _________________________________________________________ -->
         <div class=" ">
         <div class="col-md-9">
         <div class="row products ">
+
             {% for location in locations %}
+                {%if location.user.id == user  %}
             <div class="col-md-4 col-sm-6">
                 <div class="product">
                     <div class="image">
@@ -92,6 +94,7 @@ _________________________________________________________ -->
                         <p>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</p>
                         <p>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</p>
                         <p>{{ location.adresse }}</p>
+
                         <div class="ribbon sale">
                             <div class="theribbon" style="width: max-content">{{ location.prix }}</div>
                             <div class="ribbon-background"></div>
@@ -103,14 +106,14 @@ _________________________________________________________ -->
                         </div>
                             <a class="btn btn-default" href="{{ path('location_edit', { 'location': location.id }) }}">edit</a>
                             <a  class="btn btn-template-main" href="{{ path('location_delete', { 'location': location.id }) }}">delete</a>
-
-
                     </div>
                     <!-- /.text -->
                 </div>
                 <!-- /.product -->
             </div>
+            {% endif %}
             {% endfor %}
+
             {# display navigation #}
 
         </div>
