@@ -140,6 +140,8 @@
                 <div class="row products ">
 
                     {% for location in locations %}
+
+                        {% set x=0 %}
                         <div class="col-md-4 col-sm-6">
                             <div class="product">
                                 <div class="image">
@@ -160,8 +162,29 @@
                                     <p>{{ location.type }} - {{ location.etat }}</p>
                                     <p>{{ location.equipement }}- {{ location.piece }} piéce/s</p>
 
+
                                     <a class="btn btn-default" href="{{ path('location_show', { 'location': location.id }) }}">Show</a>
-                                    <a  class="fa fa-heart red" href=""></a>
+                                    {% if favoris %}
+
+
+
+                                    {% for favori in favoris %}
+                                        {% if favori.user ==app.user.id %}
+                                     {% if ((favori.annonce == location.id) ) %}
+
+
+                                         {% set x=1 %}
+                                       {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                        {% if x==0 %}
+                                            <a  class="fa fa-heart red" href="{{ path('addfavoris', { 'location': location.id }) }}"></a>
+
+                                        {% endif %}
+
+                                    {% else %}
+                                    <a  class="fa fa-heart red" href="{{ path('addfavoris', { 'location': location.id }) }}"></a>
+                                    {% endif %}
 
 
                                 </div>
@@ -169,6 +192,7 @@
                             </div>
                             <!-- /.product -->
                         </div>
+
                     {% endfor %}
                 </div>
                 <div class="navigation text-center">
@@ -195,7 +219,7 @@ _________________________________________________________ -->
                                 <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
                             </li>
                             <li>
-                                <a href=""><i class="fa fa-heart"></i> Mes favoris</a>
+                                <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
                             </li>
                             <li>
                                 <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>

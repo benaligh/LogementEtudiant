@@ -208,6 +208,8 @@ class LocationController extends Controller
     public function searchLocationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $favoris= $em->getRepository('AppBundle:Favoris')->findAll();
+
         $locations = $em->getRepository('AppBundle:Location')->findAll();
         if ($request->isMethod('POST')) {
             $prix = $request->get('prix');
@@ -238,7 +240,8 @@ class LocationController extends Controller
             $request->query->getInt('limit', 3)
         );
         return $this->render('location/searchLocation.html.twig', array(
-            'locations' => $result
+            'locations' => $result,
+         'favoris'=>$favoris
         ));
 
     }
