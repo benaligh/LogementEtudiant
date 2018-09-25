@@ -141,12 +141,15 @@
                         <li>
                             {{ location.type }} - {{ location.etat }}</li>
                         <li>{{ location.equipement }}- {{ location.piece }} piéce/s</li>
+
                     </ul>
                     <h4>Size & Fit</h4>
                     <ul>
                         <li>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</li>
                         <li>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</li>
-
+                        <p>{{ location.User.nom }}</p>
+                        <p>{{ location.user.prenom }}</p>
+                        <p>{{ location.user.telephone }}</p>
                     </ul>
 
                     <blockquote>

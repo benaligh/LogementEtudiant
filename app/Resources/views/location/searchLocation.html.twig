@@ -61,12 +61,76 @@
     <div id="heading-breadcrumbs">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
-                    <form method="POST">
-                        <input type="text" name="type">
-                        <input class="btn btn-info" type="submit" name="submit" value="Trouver un logement">
+                <div class="col-md-12">
+                    <div class="panel-body">
+                    <form class="form-inline" method="POST">
+                        <div class="form-group">
+                        <select  id="type" class="form-control input-group-lg reg_name bg-fuchsia-active" name="type">
+                            <option value="" disabled selected>Choisir le type</option>
+                            <option value="Colocation">Colocation </option>
+                            <option value="Studio">Studio</option>
+                            <option value="Appartement">Appartement</option>
+                            <option value="Maison">Maison</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                        <input id="prix" class="form-control input-group-lg reg_name" type="text" name="prix">
+                        </div>
+                        <div class="form-group">
+                        <select id="equipement" class="form-control input-group-lg reg_name"  type="text" name="equipement">
+
+                            <option value="" disabled selected>Meublé ou non!</option>
+                            <option value="non meublé">non meublé </option>
+                            <option value="meublé">meublé </option>
+
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="piece" class="form-control input-group-lg reg_name" type="text" name="piece">
+                                <option value="" disabled selected>Nombre de piéces</option>
+                                <option value="S+0">S+0 </option>
+                                <option value="S+1">S+1 </option>
+                                <option value="S+2">S+2</option>
+                                <option value="S+3">S+3</option>
+                                <option value="S+4 ou plus">S+4 ou plus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select  id="Region" class="form-control input-group-lg reg_name" name="region">
+                                <option value="" disabled selected>Choisir la région</option>
+                            <option value="Ariana">Ariana </option>
+                            <option value="Béja">Béja</option>
+                            <option value="Ben Arous">Ben Arous</option>
+                            <option value="Bizerte">Bizerte</option>
+                            <option value="Gabès">Gabès</option>
+                            <option value="Gafsa">Gafsa</option>
+                            <option value="Jendouba">Jendouba</option>
+                            <option value="Kairouan">Kairouan</option>
+                            <option value="Kasserine">Kasserine</option>
+                            <option value="Kébili">Kébili</option>
+                            <option value="Le Kef">Le Kef</option>
+                            <option value="Mahdia">Mahdia</option>
+                            <option value="La Manouba">La Manouba</option>
+                            <option value="Médenine">Médenine</option>
+                            <option value="Monastir">Monastir</option>
+                            <option value="Nabeul">Nabeul</option>
+                            <option value="Sfax">Sfax</option>
+                            <option value="Sidi Bouzid">Sidi Bouzid</option>
+                            <option value="Siliana">Siliana</option>
+                            <option value="Sousse">Sousse</option>
+                            <option value="Tataouine">Tataouine</option>
+                            <option value="Tozeur">Tozeur</option>
+                            <option value="Tunis">Tunis</option>
+                            <option value="Zaghouan">Zaghouan</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-info" type="submit" name="submit" value="Trouver un logement">
+                        </div>
                     </form>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -74,6 +138,7 @@
         <div class="">
             <div class="col-md-9">
                 <div class="row products ">
+
                     {% for location in locations %}
                         <div class="col-md-4 col-sm-6">
                             <div class="product">

@@ -37,15 +37,52 @@ class LocationType extends AbstractType
                 'choices' => array(
                     'Neuf/Refait à Neuf' => "Neuf/Refait à Neuf",
                     'trés bien état' => "trés bien état",
-                    'Etat d\'usage' => "Etat d'usage",
+                    'Etat dusage' => "Etat d'usage",
                 )
             ))
-            ->add('piece')
+            ->add('piece',ChoiceType::class, array(
+                'choices' => array(
+                    'S+0' => "S+0",
+                    'S+1' => "S+1",
+                    'S+2' => "S+2",
+                    'S+3' => "S+3",
+                    'S+4 ou plus' => "S+4 ou plus",
+
+                )
+            ))
             ->add('surface')
             ->add('dateDisp')
             ->add('datePublication')
             ->add('adresse')
-            ->add('region')
+            ->add('region', ChoiceType::class, array(
+
+                'choices' => array(
+                    'Ariana' => 'Ariana' ,
+                    'Béja' => 'Béja',
+                    'Ben Arous' => 'Ben Arous',
+                    'Bizerte' => 'Bizerte',
+                    'Gabès' =>  'Gabès' ,
+                    'Gafsa' => 'Gafsa',
+                    'Jendouba' => 'Jendouba',
+                    'Kairouan' => 'Kairouan',
+                    'Kasserine' =>'Kasserine',
+                    'Kébili' =>'Kébili',
+                    'Le Kef' =>'Le Kef',
+                    'Mahdia' =>'Mahdia',
+                    'La Manouba' =>'La Manouba',
+                    'Médenine' =>'Médenine' ,
+                    'Monastir' => 'Monastir',
+                    'Nabeul' =>'Nabeul',
+                    'Sfax' =>'Sfax' ,
+                    'Sidi Bouzid' => 'Sidi Bouzid' ,
+                    'Siliana' => 'Siliana',
+                    'Sousse' => 'Sousse',
+                    'Tataouine' =>'Tataouine',
+                    'Tozeur'=>'Tozeur',
+                    'Tunis'=>'Tunis',
+                    'Zaghouan'=>'Zaghouan',
+
+                )))
             ->add('prix')
             ->add('photo',FileType::class, [
                 'data_class' => null,

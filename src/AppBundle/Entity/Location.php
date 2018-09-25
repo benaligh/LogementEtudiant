@@ -59,9 +59,9 @@ class Location
     private $etat;
 
     /**
-     * @var int
+     * @var string
      * @Assert\NotBlank(message="champs obligatoire")
-     * @ORM\Column(name="piece", type="integer")
+     * @ORM\Column(name="piece", type="string")
      */
     private $piece;
 
