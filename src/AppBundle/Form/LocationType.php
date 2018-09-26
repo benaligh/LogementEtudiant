@@ -52,7 +52,6 @@ class LocationType extends AbstractType
             ))
             ->add('surface')
             ->add('dateDisp')
-            ->add('datePublication')
             ->add('adresse')
             ->add('region', ChoiceType::class, array(
 

@@ -22,20 +22,6 @@
                         <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
                     </a>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown active">
-                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#numberone">CHOISIR LE GROUPE N°1 DU LOGEMENT ÉTUDIANT
-                                    </a>
-                                </li>
-                                <li><a href="#numbertwo"> LES BONNES RAISONS DE LOUER AVEC NOUS
-                                    </a>
-                                </li>
-                                <li><a href="#numberthree">ILS PARLENT DE NOUS </a>
-                                </li>
-                                <li><a href="#numberfour">NOTRE EQUIPE</a>
-                            </ul>
-                        </li>
                         <li class="dropdown use-yamm yamm-fw">
                             <a href="{{ path('location_new') }}">Déposer une annonce</a>
 
@@ -149,21 +135,17 @@
                                 </div>
                                 <!-- /.image -->
                                 <div class="ribbon sale">
-                                    <div class="theribbon" style="width: max-content">{{ location.prix }}T.n.d</div>
+                                    <div class="theribbon" style="width: max-content">{{ location.type }}</div>
                                     <div class="ribbon-background"></div>
                                 </div>
 
-                                <div class="ribbon new">
-                                    <div class="theribbon " style="width: max-content">{{ location.region }}</div>
-                                    <div class="ribbon-background"></div>
-                                </div>
                                 <div class="text">
-                                    <h3>{{ location.titre }}</h3>
+                                    <h6>{{ location.titre }}</h6>
                                     <p>{{ location.type }} - {{ location.etat }}</p>
                                     <p>{{ location.equipement }}- {{ location.piece }} piéce/s</p>
 
 
-                                    <a class="btn btn-default" href="{{ path('location_show', { 'location': location.id }) }}">Show</a>
+                                    <a class="btn btn-default" href="{{ path('location_show', { 'location': location.id }) }}">Voir Annonce</a>
                                     {% if favoris %}
 
 
@@ -225,7 +207,7 @@ _________________________________________________________ -->
                                 <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
                             </li>
                             <li class="active">
-                                <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Rechercher une Co/Location</a>
+                                <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>
                             </li>
 
                         </ul>

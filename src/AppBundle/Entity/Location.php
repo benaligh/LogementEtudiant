@@ -137,8 +137,6 @@ class Location
     }
 
 
-
-
     /**
      * Get id
      *
@@ -460,5 +458,13 @@ class Location
     {
         return $this->photo;
     }
+
+
+    public function __construct()
+    {
+        $this->date_publication = new \DateTime('now');
+    }
+
+
 }
 

@@ -1,0 +1,209 @@
+{% extends 'base.html.twig' %}
+{% block header %}
+    <header>
+        <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
+
+            <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                <div class="row">
+
+                    <div class="navbar-buttons">
+
+                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-align-justify"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--/.navbar-header -->
+
+                <div class="navbar-collapse collapse" id="navigation">
+                    <a class="nav navbar-nav navbar-left" href="#">
+                        <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
+                    </a>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="{{ path('homepage') }}"> Acceuil</a></p>
+                        </li>
+                        <li  class="dropdown active">
+                            <a href="{{ path('location_annonces') }}"> Annonces </a></p>
+                        </li>
+                        <li class="dropdown use-yamm yamm-fw">
+                            <a href="{{ path('fos_user_security_login') }}" class="dropdown-toggle"data-toggle="modal" data-target="#login-modal">Connexion</a>
+                        </li>
+                        <li class="dropdown use-yamm yamm-fw">
+                            <a href="{{ path('location_depose') }}" class="dropdown-toggle" data-toggle="dropdown">Deposer Mon annonce</a>
+                        </li>
+                        <!-- ========== FULL WIDTH MEGAMENU ================== -->
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+
+                <!-- /#navbar -->
+            </div>
+            <!-- *** NAVBAR END *** -->
+        </div>
+    </header>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+    <!-- *** LOGIN MODAL ***
+      _________________________________________________________ -->
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="Login">Customer login</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="email_modal" placeholder="email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password_modal" placeholder="password">
+                        </div>
+
+                        <p class="text-center">
+                            <button class="btn btn-template-main"><i class="fa fa-sign-in"></i> Log in</button>
+                        </p>
+
+                    </form>
+
+                    <p class="text-center text-muted">Not registered yet?</p>
+                    <p class="text-center text-muted"><a href=""><strong>Register now</strong></a>! It is easy and done in 1&nbsp;minute and gives you access to special discounts and much more!</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- *** LOGIN MODAL END *** -->
+    <div id="content">
+        <div id="heading-breadcrumbs">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-body">
+                            <form class="form-inline" method="POST">
+                                <div class="form-group">
+                                    <select id="type" class="form-control input-group-lg reg_name bg-fuchsia-active"
+                                            name="type">
+                                        <option value="" disabled selected>Choisir le type</option>
+                                        <option value="Colocation">Colocation</option>
+                                        <option value="Studio">Studio</option>
+                                        <option value="Appartement">Appartement</option>
+                                        <option value="Maison">Maison</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input id="prix" class="form-control input-group-lg reg_name" type="text"
+                                           name="prix">
+                                </div>
+                                <div class="form-group">
+                                    <select id="equipement" class="form-control input-group-lg reg_name" type="text"
+                                            name="equipement">
+
+                                        <option value="" disabled selected>Meublé ou non!</option>
+                                        <option value="non meublé">non meublé</option>
+                                        <option value="meublé">meublé</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="piece" class="form-control input-group-lg reg_name" type="text"
+                                            name="piece">
+                                        <option value="" disabled selected>Nombre de piéces</option>
+                                        <option value="S+0">S+0</option>
+                                        <option value="S+1">S+1</option>
+                                        <option value="S+2">S+2</option>
+                                        <option value="S+3">S+3</option>
+                                        <option value="S+4 ou plus">S+4 ou plus</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <select id="Region" class="form-control input-group-lg reg_name" name="region">
+                                        <option value="" disabled selected>Choisir la région</option>
+                                        <option value="Ariana">Ariana</option>
+                                        <option value="Béja">Béja</option>
+                                        <option value="Ben Arous">Ben Arous</option>
+                                        <option value="Bizerte">Bizerte</option>
+                                        <option value="Gabès">Gabès</option>
+                                        <option value="Gafsa">Gafsa</option>
+                                        <option value="Jendouba">Jendouba</option>
+                                        <option value="Kairouan">Kairouan</option>
+                                        <option value="Kasserine">Kasserine</option>
+                                        <option value="Kébili">Kébili</option>
+                                        <option value="Le Kef">Le Kef</option>
+                                        <option value="Mahdia">Mahdia</option>
+                                        <option value="La Manouba">La Manouba</option>
+                                        <option value="Médenine">Médenine</option>
+                                        <option value="Monastir">Monastir</option>
+                                        <option value="Nabeul">Nabeul</option>
+                                        <option value="Sfax">Sfax</option>
+                                        <option value="Sidi Bouzid">Sidi Bouzid</option>
+                                        <option value="Siliana">Siliana</option>
+                                        <option value="Sousse">Sousse</option>
+                                        <option value="Tataouine">Tataouine</option>
+                                        <option value="Tozeur">Tozeur</option>
+                                        <option value="Tunis">Tunis</option>
+                                        <option value="Zaghouan">Zaghouan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input class="btn btn-info" type="submit" name="submit" value="Trouver un logement">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="">
+                <div class="col-md-12">
+                    <div class="row products ">
+
+                        {% for location in locations %}
+                            <div class="col-md-4 col-sm-6">
+                                <div class="product">
+                                    <div class="image">
+                                        <img src="{{ asset('uploads/annonce/'~ location.photo ) }}"
+                                             class="img-responsive image1">
+                                    </div>
+                                    <!-- /.image -->
+                                    <div class="ribbon sale">
+                                        <div class="theribbon" style="width: max-content">{{ location.prix }} Dt</div>
+                                        <div class="ribbon-background"></div>
+                                    </div>
+
+                                    <div class="text">
+                                        <h6>{{ location.titre }}</h6>
+                                        <p>{{ location.type }} - {{ location.etat }}</p>
+                                        <p>{{ location.equipement }}- {{ location.piece }} piéce/s</p>
+
+                                    </div>
+                                    <!-- /.text -->
+                                </div>
+                                <!-- /.product -->
+                            </div>
+
+                        {% endfor %}
+                    </div>
+                    <div class="navigation text-center">
+                        {{ knp_pagination_render(locations) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -9,7 +9,8 @@
 
                     <div class="navbar-buttons">
 
-                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse"
+                                data-target="#navigation">
                             <span class="sr-only">Toggle navigation</span>
                             <i class="fa fa-align-justify"></i>
                         </button>
@@ -19,11 +20,13 @@
 
                 <div class="navbar-collapse collapse" id="navigation">
                     <a class="nav navbar-nav navbar-left" href="#">
-                        <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
+                        <img src="{{ asset("img/colocation.jpg") }}" alt="Colocation logo" style="width:30%;"
+                             class="hidden-xs hidden-sm">
                     </a>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown active">
-                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b class="caret"></b></a>
+                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b
+                                        class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#numberone">CHOISIR LE GROUPE N°1 DU LOGEMENT ÉTUDIANT
                                     </a>
@@ -37,11 +40,11 @@
                             </ul>
                         </li>
                         <li class="">
-                            <a name="<<Back to the list" href="{{ path('location_index') }}"> Back to the list  </a>
+                            <a name="<<Back to the list" href="{{ path('location_index') }}"> Back to the list </a>
 
                         </li>
                         <li class="">
-                            <a href="{{ path('fos_user_security_logout')}}" class="" >se déconnecter</a>
+                            <a href="{{ path('fos_user_security_logout') }}" class="">se déconnecter</a>
                         </li>
                         <!-- ========== FULL WIDTH MEGAMENU ================== -->
                     </ul>
@@ -140,20 +143,19 @@
                                         {{ form_row(form.dateDisp ) }}
                                     </div>
 
-                                    <div class="col-sm-4 ">
-                                        {{ form_row(form.datePublication ) }}
-                                    </div>
+                                    {#<div class="col-sm-4 ">#}
+                                        {#{{ form_row(form.datePublication ) }}#}
+                                    {#</div>#}
                                     <div class="col-sm-4 ">
                                         {{ form_row(form.prix ) }}
                                     </div>
                                 </div>
-                            <div class="row">
+                                <div class="row">
                                     {{ form_row(form.description ) }}
-                            </div>
+                                </div>
                                 <div>
                                     <div class="col-sm-13 text-center">
-                                        <input type="submit" class=" btn btn-template-main" value="Create" />
-
+                                        <input type="submit" class=" btn btn-template-main" value="Déposer"/>
                                     </div>
 
                                 </div>
@@ -165,7 +167,6 @@
                     </div>
                 </div>
             </div>
-
 
 
         </div>

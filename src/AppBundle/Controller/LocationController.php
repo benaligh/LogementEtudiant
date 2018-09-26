@@ -35,7 +35,7 @@ class LocationController extends Controller
         $result = $paginator->paginate(
             $locations,
             $request->query->getInt('page', 1)/*page number*/,
-            $request->query->getInt('limit', 3)
+            $request->query->getInt('limit', 6)
         );
 
         return $this->render('location/index.html.twig', array(
@@ -66,7 +66,7 @@ class LocationController extends Controller
         $result = $paginator->paginate(
             $locations,
             $request->query->getInt('page', 1)/*page number*/,
-            $request->query->getInt('limit', 3)
+            $request->query->getInt('limit', 6)
         );
 
 
@@ -116,6 +116,8 @@ class LocationController extends Controller
     public function newAction(Request $request)
     {
         $location = new Location();
+        $location->setDatePublication(new \DateTime('now'));
+
         $form = $this->createForm('AppBundle\Form\LocationType', $location);
         $form->handleRequest($request);
 

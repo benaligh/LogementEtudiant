@@ -22,20 +22,7 @@
                         <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
                     </a>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown active">
-                            <a href="javascript: void(0)" class="dropdown-toggle" data-toggle="dropdown">Acceuil <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#numberone">CHOISIR LE GROUPE N°1 DU LOGEMENT ÉTUDIANT
-                                    </a>
-                                </li>
-                                <li><a href="#numbertwo"> LES BONNES RAISONS DE LOUER AVEC NOUS
-                                    </a>
-                                </li>
-                                <li><a href="#numberthree">ILS PARLENT DE NOUS </a>
-                                </li>
-                                <li><a href="#numberfour">NOTRE EQUIPE</a>
-                            </ul>
-                        </li>
+
                         <li class="dropdown use-yamm yamm-fw">
                             <a href="{{ path('location_new') }}">Déposer une annonce</a>
 
@@ -77,35 +64,27 @@ _________________________________________________________ -->
 
             {% for location in locations %}
                 {%if location.user.id == user  %}
-            <div class="col-md-4 col-sm-6">
-                <div class="product">
-                    <div class="image">
-                        <img src="{{ asset('uploads/annonce/'~ location.photo ) }}"class="img-responsive image1">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="product">
+                            <div class="image">
+                                <img src="{{ asset('uploads/annonce/'~ location.photo ) }}"class="img-responsive image1">
+                            </div>
+                            <!-- /.image -->
+                            <div class="ribbon sale">
+                                <div class="theribbon" style="width: max-content">{{ location.type }}</div>
+                                <div class="ribbon-background"></div>
+                            </div>
 
-                    </div>
-
-                    <!-- /.image -->
-                    <div class="text">
-                        <h3>{{ location.titre }}</h3>
-                        <p class="price">{{ location.description }}</p>
-                        <p>{{ location.type }} - {{ location.etat }}</p>
-                        <p>{{ location.equipement }}- {{ location.piece }} piéce/s</p>
-                        <p>{{ location.surface }}m2</p>
-                        <p>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</p>
-                        <p>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</p>
-                        <p>{{ location.adresse }}</p>
-
-                        <div class="ribbon sale">
-                            <div class="theribbon" style="width: max-content">{{ location.prix }}</div>
-                            <div class="ribbon-background"></div>
-                        </div>
-
-                        <div class="ribbon new">
-                            <div class="theribbon" style="width: max-content">{{ location.region }}</div>
-                            <div class="ribbon-background"></div>
-                        </div>
-                            <a class="btn btn-default" href="{{ path('location_edit', { 'location': location.id }) }}">edit</a>
-                            <a  class="btn btn-template-main" href="{{ path('location_delete', { 'location': location.id }) }}">delete</a>
+                            {#<div class="ribbon new">#}
+                                {#<div class="theribbon " style="width: max-content">{{ location.region }}</div>#}
+                                {#<div class="ribbon-background"><p style="color: white; text-align: center">{{ location.type }}</p></div>#}
+                            {#</div>#}
+                            <div class="text">
+                                <h6>{{ location.titre }}</h6>
+                                <p>{{ location.type }} - {{ location.etat }}</p>
+                                <p>{{ location.equipement }}- {{ location.piece }} piéce/s</p>
+                            <a class="btn btn-default" href="{{ path('location_edit', { 'location': location.id }) }}">Modifier</a>
+                            <a  class="btn btn-template-main" href="{{ path('location_delete', { 'location': location.id }) }}">Supprimer</a>
                     </div>
                     <!-- /.text -->
                 </div>
@@ -123,6 +102,7 @@ _________________________________________________________ -->
     </div>
 
         </div>
+
         <!-- *** RIGHT COLUMN ***
 _________________________________________________________ -->
 
@@ -147,7 +127,7 @@ _________________________________________________________ -->
                             <a href=""><i class="fa fa-user"></i> Mon profile</a>
                         </li>
                         <li>
-                            <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Rechercher une Co/Location</a>
+                            <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>
                         </li>
 
                     </ul>

@@ -65,10 +65,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-7">
-                        <form method="POST">
-                            <input type="text" name="type">
-                            <input class="btn btn-info" type="submit" name="submit" value="Trouver un logement">
-                        </form>
+
                     </div>
                 </div>
             </div>
@@ -76,22 +73,28 @@
         <div class="container ">
             <div class="">
                 <div class="col-md-9">
+                    <blockquote>
+                        <p class="lead" style="text-align: justify; font-size: 1em; line-height: 1.3em;">
+                            <em>{{ location.description }}.</em></p>
+                    </blockquote>
+                    <h3>{{ location.titre }}</h3>
 
-                    <p class="lead">{{ location.description }}.
-                    </p>
-                    <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">Scroll for more details
-                          </a>
+                    <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">Scroll for more
+                            details
+                        </a>
                     </p>
 
                     <div class="row" id="productMain">
                         <div class="col-sm-6">
-                            <div id="image">
-                                <img src={{ asset('img/pro.jpg') }} alt="" class="img-responsive">
+                            <p style="color: #38a7bb">Publié le {% if location.datePublication %}{{ location.datePublication|date('m/d/Y') }}{% endif %}</p>
 
+                            <div id="image">
+                                <img src="{{ asset('uploads/annonce/'~ location.photo ) }}"
+                                     class="img-responsive image1">
                             </div>
 
                             <div class="ribbon new">
-                                <div class="theribbon " style="width: max-content">{{ location.region }}</div>
+                                <div class="theribbon " style="width: max-content">{{ location.prix }} Dt</div>
                                 <div class="ribbon-background"></div>
                             </div>
                             <!-- /.ribbon -->
@@ -103,11 +106,23 @@
                                 <form>
                                     <div class="sizes">
 
-                                        <h3>{{ location.titre }}</h3>
 
                                     </div>
 
-                                    <p class="price" >{{ location.prix }}T.n.d</p>
+                                    <p class="price"> </p>
+
+                                    <h5>{{ location.user.nom }} {{ location.user.prenom }}</h5><br>
+                                    <h5>{{ location.user.telephone }}</h5> <br>
+                                    <h5> {{ location.user.email }}</h5><br>
+                                   <h5> {{ location.user.ecole }}<br></h5>
+                                   <h5>{{ location.user.adresse }}</h5>
+
+
+
+
+
+
+
 
 
                                     <p class="text-center">
@@ -124,41 +139,35 @@
                     </div>
                     <div class="box" id="details">
                         <p>
+                        <table class="table">
+                            <h4>Descriptif général</h4>
+                            <tr>
+                                <td><i class="fa fa-bed" aria-hidden="true"></i>TYPE DE LOGEMENt</td>
+                                <td>ÉTAT</td>
+                                <td>Piéce</td>
+                                <td>SURFACE</td>
+                                <td><i class="fa fa-asterisk" aria-hidden="true"></i>Equipement</td>
+                                <td><i class="fa fa-calendar" aria-hidden="true"></i>
+                                    disponible
+                                </td>
+                                <td><i class="fa fa-home" aria-hidden="true"></i>Adresse</td>
+                                <td><i class="fa fa-map-marker" aria-hidden="true"></i>Région</td>
 
-                    <h4>Product details</h4>
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        <i class="fa fa-bed" aria-hidden="true"></i>
-                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                        <i class="fa fa-asterisk" aria-hidden="true"></i>
+                            </tr>
 
-                        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            <tr>
+                                <td>{{ location.type }}</td>
+                                <td>{{ location.etat }}</td>
+                                <td>{{ location.piece }} piéces</td>
+                                <td>à partir de {{ location.surface }} m²</td>
+                                <td>{{ location.equipement }}</td>
+                                <td>{% if location.dateDisp %} à partir de {{ location.dateDisp|date('m/d/Y') }}{% endif %}</td>
+                                <td>{{ location.adresse }}</td>
+                                <td>{{ location.region }}</td>
+                            </tr>
+                        </table>
 
-                        <li >{{ location.adresse }}</li>
-                                <li>{{ location.surface }}m2</li>
-                    <h4>Material & care</h4>
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                    <ul>
-                        <li>
-                            {{ location.type }} - {{ location.etat }}</li>
-                        <li>{{ location.equipement }}- {{ location.piece }} piéce/s</li>
-
-                    </ul>
-                    <h4>Size & Fit</h4>
-                    <ul>
-                        <li>{% if location.dateDisp %}{{ location.dateDisp|date('Y-m-d') }}{% endif %}</li>
-                        <li>{% if location.datePublication %}{{ location.datePublication|date('Y-m-d') }}{% endif %}</li>
-                        <p>{{ location.User.nom }}</p>
-                        <p>{{ location.user.prenom }}</p>
-                        <p>{{ location.user.telephone }}</p>
-                    </ul>
-
-                    <blockquote>
-                        <p><em>Define style this season with Armani's new range of trendy tops, crafted with intricate
-                                details. Create a chic statement look by teaming this lace number with skinny jeans and
-                                pumps.</em>
-                        </p>
-                    </blockquote>
-                </div>
+                    </div>
 
                 </div>
 
@@ -166,46 +175,45 @@
             <!-- /.col-md-9 -->
 
 
-        <!-- *** RIGHT COLUMN ***
-_________________________________________________________ -->
+            <!-- *** RIGHT COLUMN ***
+    _________________________________________________________ -->
 
-        <div class="col-md-3">
-            <!-- *** CUSTOMER MENU ***
-_________________________________________________________ -->
-            <div class="panel panel-default sidebar-menu">
+            <div class="col-md-3">
+                <!-- *** CUSTOMER MENU ***
+    _________________________________________________________ -->
+                <div class="panel panel-default sidebar-menu">
 
-                <div class="panel-heading">
-                    <h3 class="panel-title">Mon section</h3>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Mon section</h3>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>
+                                <a href="{{ path('location_index') }}"><i class="fa fa-list"></i> Mes annonces</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
+                            </li>
+                            <li class="active">
+                                <a href="{{ path('location_search') }}"><i class="fa fa-search"></i> Les annonces </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
                 </div>
+                <!-- /.col-md-3 -->
 
-                <div class="panel-body">
-
-                    <ul class="nav nav-pills nav-stacked">
-                        <li>
-                            <a href="{{ path('location_index') }}"><i class="fa fa-list"></i> Mes annonces</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-heart"></i> Mes favoris</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
-                        </li>
-                        <li class="active">
-                            <a href="{{ path('location_search') }}"><i class="fa fa-search"></i> Rechercher une
-                                Co/Location</a>
-                        </li>
-
-                    </ul>
-                </div>
-
+                <!-- *** CUSTOMER MENU END *** -->
             </div>
-            <!-- /.col-md-3 -->
 
-            <!-- *** CUSTOMER MENU END *** -->
+            <!-- *** RIGHT COLUMN END *** -->
         </div>
-
-        <!-- *** RIGHT COLUMN END *** -->
-    </div>
     </div>
     </div>
 {% endblock %}
