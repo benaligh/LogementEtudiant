@@ -22,10 +22,10 @@ class LocationController extends Controller
      * @Route("/", name="location_index")
      * @Method("GET")
      */
-    public function indexAction(Request $request )
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $user=$this->getUser()->getId();
+        $user = $this->getUser()->getId();
         $locations = $em->getRepository('AppBundle:Location')->findAll();
 
         /**
@@ -40,7 +40,7 @@ class LocationController extends Controller
 
         return $this->render('location/index.html.twig', array(
             'locations' => $result,
-            'user'=>$user,
+            'user' => $user,
         ));
 
     }
@@ -115,6 +115,7 @@ class LocationController extends Controller
      */
     public function newAction(Request $request)
     {
+        $session = $request->getSession();
         $location = new Location();
         $location->setDatePublication(new \DateTime('now'));
 
@@ -122,18 +123,23 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $conecté=$this->getUser();
+            $conecté = $this->getUser();
             $location->setUser($conecté);
+
             $file = $form['photo']->getData();
             $newImgName = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('annonce_Photos'), $newImgName);
             $location->setPhoto($newImgName);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($location);
             $em->flush();
 
             return $this->redirectToRoute('location_index', array('id' => $location->getId()));
+
         }
+        $session->set('location', $location);
+        $session->getFlashBag()->add('success', 'annonce déposé');
 
         return $this->render('location/new.html.twig', array(
             'location' => $location,
@@ -142,17 +148,17 @@ class LocationController extends Controller
     }
 
     /**
-    * Finds and displays a location entity.
-    *
-    * @Route("show/{location}", name="location_show")
-   * @Method("GET")
-   */
+     * Finds and displays a location entity.
+     *
+     * @Route("show/{location}", name="location_show")
+     * @Method("GET")
+     */
 
 
     public function showAction(Request $request, Location $location)
     {
-       $em = $this->getDoctrine()->getManager();
-       $location=$em->getRepository('AppBundle:Location')->find($location);
+        $em = $this->getDoctrine()->getManager();
+        $location = $em->getRepository('AppBundle:Location')->find($location);
         return $this->render('location/show.html.twig', array(
             'location' => $location,
         ));
@@ -204,31 +210,32 @@ class LocationController extends Controller
 
         return $this->redirectToRoute('location_index');
     }
+
     /**
      * @Route("/search", name="location_search")
      */
     public function searchLocationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $favoris= $em->getRepository('AppBundle:Favoris')->findAll();
+        $favoris = $em->getRepository('AppBundle:Favoris')->findAll();
 
         $locations = $em->getRepository('AppBundle:Location')->findAll();
         if ($request->isMethod('POST')) {
             $prix = $request->get('prix');
             $type = $request->get('type');
             $equipement = $request->get('equipement');
-                 $piece=$request->get('piece');
+            $piece = $request->get('piece');
             $region = $request->get('region');
             $locations = $em->getRepository('AppBundle:Location')->findBy(
-            [
-                "type" => $type,
-                "prix" =>$prix,
-                "equipement"=>$equipement,
-                "region"=>$region,
-                "piece"=>$piece,
+                [
+                    "type" => $type,
+                    "prix" => $prix,
+                    "equipement" => $equipement,
+                    "region" => $region,
+                    "piece" => $piece,
 
 
-        ]
+                ]
             );
 
         }
@@ -243,13 +250,38 @@ class LocationController extends Controller
         );
         return $this->render('location/searchLocation.html.twig', array(
             'locations' => $result,
-         'favoris'=>$favoris
+            'favoris' => $favoris
         ));
 
     }
 
 
 
+//    /**
+//     * listes des location à vérifier.
+//     *
+//     * @Route("/valid", name="location_admin")
+//     */
+//    public function validLocationAction(Request $request )
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//        $locations = $em->getRepository('AppBundle:Location')->findAll();
+//
+//        /**
+//         * @var $paginator \Knp\Component\Pager\Paginator
+//         */
+//        $paginator = $this->get('knp_paginator');
+//        $result = $paginator->paginate(
+//            $locations,
+//            $request->query->getInt('page', 1)/*page number*/,
+//            $request->query->getInt('limit', 6)
+//        );
+//
+//        return $this->render('location/valid.html.twig', array(
+//            'locations' => $result,
+//        ));
+//
+//    }
 
 
 }

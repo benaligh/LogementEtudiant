@@ -109,7 +109,7 @@ class Location
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="champs obligatoire")
      * @ORM\Column(name="photo", type="string", length=255, nullable=true)
      */
     private $photo;
@@ -329,6 +329,7 @@ class Location
         return $this;
     }
 
+
     /**
      * Get dateDisp
      *
@@ -458,6 +459,10 @@ class Location
     {
         return $this->photo;
     }
+
+
+
+
 
 
     public function __construct()

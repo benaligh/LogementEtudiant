@@ -4,3 +4,4 @@ easy_admin:
         # change the following to the namespaces of your own entities
         - AppBundle\Entity\Location
         - AppBundle\Entity\User
+        - AppBundle\Entity\Favoris

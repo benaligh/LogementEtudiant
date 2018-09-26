@@ -124,7 +124,13 @@ _________________________________________________________ -->
                             <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
                         </li>
                         <li>
-                            <a href=""><i class="fa fa-user"></i> Mon profile</a>
+                            {#<a href=""><i class="fa fa-user"></i> Mon profile</a>#}
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li><a href="{{ path('fos_user_profile_edit') }}">
+                                <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                            </a>
+                        </li>
+                        {% endif %}
                         </li>
                         <li>
                             <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>

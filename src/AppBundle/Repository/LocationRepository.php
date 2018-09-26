@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class LocationRepository extends \Doctrine\ORM\EntityRepository
 {
+//    public function getLocationsValid($status)
+//    {
+//        $query = $this->createQueryBuilder('loc')
+//            ->where('loc.status == 1')
+//            ->setParameters(
+//                array(
+//                    'status' => $status,
+//
+//                )
+//            )
+//            ->getQuery();
+//        return $query->getResult();
+//
+//    }
 }

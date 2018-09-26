@@ -40,7 +40,7 @@
                             </ul>
                         </li>
                         <li class="">
-                            <a name="<<Back to the list" href="{{ path('location_index') }}"> Back to the list </a>
+                            <a name="<<Back to the list" href="{{ path('location_index') }}"> Retour </a>
 
                         </li>
                         <li class="">
@@ -62,12 +62,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-7">
-                    <h1>New Annonce</h1>
-
-                </div>
-                <div class="col-md-5">
-
-
+                    <h1 style="color: #2C93FF">Déposer votre annonce </h1>
                 </div>
             </div>
         </div>
@@ -78,13 +73,27 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box">
+                        {% for message in app.session.flashbag.get('error') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        {% for message in app.session.flashbag.get('success') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
                         {{ form_start(form) }}
                         <div class="box clearfix">
                             <div class="heading">
-                                <h3 class="text-uppercase">Annonce details</h3>
+                                <h3 class="text-uppercase">Détails de l'annonce</h3>
                             </div>
                             <form class="form-control">
                                 <div class="row">
+
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             {{ form_row(form.titre) }}
@@ -102,56 +111,66 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             {{ form_row(form.piece) }}
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
+
+                                    <div class="col-sm-4">
                                         <div class="form-group date">
                                             {{ form_row(form.etat) }}
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
 
-                                            {{ form_row(form.equipement) }}
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             {{ form_row(form.surface) }}
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 ">
-                                        {{ form_row(form.region ) }}
-                                    </div>
-
-                                    <div class="col-sm-3 ">
-                                        {{ form_row(form.photo ) }}
-                                    </div>
-
                                 </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.equipement) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.region ) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            {{ form_row(form.photo ) }}
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-sm-4 ">
-
-                                        {{ form_row(form.dateDisp ) }}
+                                        <div class="form-group">
+                                            {{ form_row(form.dateDisp ) }}
+                                        </div>
                                     </div>
-
-                                    {#<div class="col-sm-4 ">#}
-                                        {#{{ form_row(form.datePublication ) }}#}
-                                    {#</div>#}
-                                    <div class="col-sm-4 ">
-                                        {{ form_row(form.prix ) }}
+                                    <div class="col-sm-3 ">
+                                        <div class="form-group">
+                                            {{ form_row(form.prix ) }}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    {{ form_row(form.description ) }}
+                                    <div class="col-sm-12 ">
+                                        <div class="form-group">
+                                            {{ form_row(form.description ) }}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div>
                                     <div class="col-sm-13 text-center">
