@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Location controller.
@@ -26,20 +27,11 @@ class LocationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser()->getId();
-        $locations = $em->getRepository('AppBundle:Location')->findAll();
+        $locations = $em->getRepository('AppBundle:Location')->getLocationsValid();
 
-        /**
-         * @var $paginator \Knp\Component\Pager\Paginator
-         */
-        $paginator = $this->get('knp_paginator');
-        $result = $paginator->paginate(
-            $locations,
-            $request->query->getInt('page', 1)/*page number*/,
-            $request->query->getInt('limit', 6)
-        );
 
         return $this->render('location/index.html.twig', array(
-            'locations' => $result,
+            'locations' => $locations,
             'user' => $user,
         ));
 
@@ -66,7 +58,7 @@ class LocationController extends Controller
         $result = $paginator->paginate(
             $locations,
             $request->query->getInt('page', 1)/*page number*/,
-            $request->query->getInt('limit', 6)
+            $request->query->getInt('limit', 10)
         );
 
 
@@ -123,8 +115,8 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $conecté = $this->getUser();
-            $location->setUser($conecté);
+            $conecte = $this->getUser();
+            $location->setUser($conecte);
 
             $file = $form['photo']->getData();
             $newImgName = md5(uniqid()) . '.' . $file->guessExtension();
@@ -139,7 +131,7 @@ class LocationController extends Controller
 
         }
         $session->set('location', $location);
-        $session->getFlashBag()->add('success', 'annonce déposé');
+        $session->getFlashBag()->add('success', 'Votre annonce est déposée avec succes');
 
         return $this->render('location/new.html.twig', array(
             'location' => $location,
@@ -177,6 +169,11 @@ class LocationController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $file = $editForm['photo']->getData();
+            $newImgName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('annonce_Photos'), $newImgName);
+            $location->setPhoto($newImgName);
+
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -188,6 +185,7 @@ class LocationController extends Controller
             'edit_form' => $editForm->createView(),
         ));
     }
+
 
     /**
      * @param Request $request
@@ -213,30 +211,22 @@ class LocationController extends Controller
 
     /**
      * @Route("/search", name="location_search")
+     *
      */
     public function searchLocationAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $favoris = $em->getRepository('AppBundle:Favoris')->findAll();
 
-        $locations = $em->getRepository('AppBundle:Location')->findAll();
+        $locations = $em->getRepository('AppBundle:Location')->getLocationsValid();
         if ($request->isMethod('POST')) {
-            $prix = $request->get('prix');
+            $prixmax = $request->get('prix');
             $type = $request->get('type');
             $equipement = $request->get('equipement');
             $piece = $request->get('piece');
             $region = $request->get('region');
-            $locations = $em->getRepository('AppBundle:Location')->findBy(
-                [
-                    "type" => $type,
-                    "prix" => $prix,
-                    "equipement" => $equipement,
-                    "region" => $region,
-                    "piece" => $piece,
+            $locations = $em->getRepository('AppBundle:Location')->searchby($prixmax,$type,$equipement,$piece,$region);
 
-
-                ]
-            );
 
         }
         /**
@@ -246,7 +236,7 @@ class LocationController extends Controller
         $result = $paginator->paginate(
             $locations,
             $request->query->getInt('page', 1)/*page number*/,
-            $request->query->getInt('limit', 3)
+            $request->query->getInt('limit', 6)
         );
         return $this->render('location/searchLocation.html.twig', array(
             'locations' => $result,
@@ -283,6 +273,59 @@ class LocationController extends Controller
 //
 //    }
 
+
+    /**
+     * listes des location à vérifier.
+     *
+     * @Route("/admin", name="location_admin")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function adminLocationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $locations = $em->getRepository('AppBundle:Location')->findAll(array(
+            'status' => 1
+        ));
+
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $locations,
+            $request->query->getInt('page', 1)/*page number*/,
+            $request->query->getInt('limit', 10)
+        );
+
+        return $this->render('location/valid.html.twig', array(
+            'locations' => $result,
+        ));
+
+    }
+
+
+    /**
+     * listes des location à vérifier.
+     *
+     * @Route("/admin/valid/{id}", name="location_valid")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+
+    public function validLocation(Request $request, Location $location)
+    {
+        $session = $request->getSession();
+        $location = $this->getDoctrine()->getRepository('AppBundle:Location')->findOneBy(array('id'=>$location));
+
+        $location->setStatus(1);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($location);
+        $em->flush();
+        $session->getFlashBag()->add('success', 'Location validé');
+
+
+        return $this->forward('AppBundle:Location:adminLocation');
+
+    }
 
 }
 

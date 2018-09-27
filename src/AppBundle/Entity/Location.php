@@ -114,6 +114,27 @@ class Location
      */
     private $photo;
 
+    /**
+     * @var int
+     * @ORM\Column(name="status", type="integer",nullable=true)
+     */
+    private $status;
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User"))

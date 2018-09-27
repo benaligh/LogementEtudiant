@@ -83,9 +83,9 @@ class LocationType extends AbstractType
 
                 )))
             ->add('prix')
-            ->add('photos',FileType::class, [
+            ->add('photo',FileType::class, [
                 'data_class' => null,
-                'multiple' => true,
+
             ]);
     }
 

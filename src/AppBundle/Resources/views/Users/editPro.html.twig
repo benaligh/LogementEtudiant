@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div id="heading-breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1>Edit Annonce</h1>
+                    <li>
+                        <a href="{{ path('location_index') }}">Back to the list</a>
+                    </li>
+                </div>
+                <div class="col-md-5">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        {{ form_start(edit_form) }}
+                        <div class="box clearfix">
+                            <div class="heading">
+                                <h3 class="text-uppercase">Profile details</h3>
+                            </div>
+                            <form class="form-control">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            {{ form_row(edit_form.nomGroupe) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            {{ form_row(edit_form.adresse) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            {{ form_row(edit_form.telephone) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-5 ">
+                                        {{ form_row(edit_form.username ) }}
+                                    </div>
+
+                                    <div class="col-sm-5 ">
+                                        {{ form_row(edit_form.email ) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    {{ form_row(edit_form.plainPassword ) }}
+                                </div>
+                                <div>
+                                    <div class="col-sm-13 text-center">
+                                        <input type="submit" class=" btn btn-template-main" value="Edit" />
+
+                                    </div>
+
+                                </div>
+                                {{ form_end(edit_form) }}
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+{% endblock %}

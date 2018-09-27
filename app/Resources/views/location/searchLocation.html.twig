@@ -60,7 +60,7 @@
                         </select>
                         </div>
                         <div class="form-group">
-                        <input id="prix" class="form-control input-group-lg reg_name" type="text" name="prix" placeholder="Budjet maximal">
+                        <input id="prix" class="form-control input-group-lg reg_name" type="text" name="prix" placeholder="Budget maximal">
                         </div>
                         <div class="form-group">
                         <select id="equipement" class="form-control input-group-lg reg_name"  type="text" name="equipement">
@@ -204,8 +204,16 @@ _________________________________________________________ -->
                                 <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
                             </li>
                             <li>
-                                <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
+                                {#<a href=""><i class="fa fa-user"></i> Mon profile</a>#}
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                {% if is_granted("ROLE_ETUDIANT") %}
+                            <li><a href="{{ path('editetd', { 'user': app.user.id }) }}">
+                                    <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                                </a>
                             </li>
+                            {% endif %}
+
+                            {% endif %}
                             <li class="active">
                                 <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>
                             </li>

@@ -9,7 +9,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username_email
+            id: fos_user.user_provider.username
 
     firewalls:
         main:
@@ -24,13 +24,13 @@ security:
 
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/etudiant/, role: ROLE_ETUDIANT }
         - { path: ^/particulier/, role: ROLE_PARTICULIER}
-        - { path: ^/professionnel/, role: ROLE_PRO}
+        - { path: ^/professionnel/, role: ROLE_PROFESSIONNEL}
 
 
 

@@ -64,6 +64,7 @@ _________________________________________________________ -->
 
             {% for location in locations %}
                 {%if location.user.id == user  %}
+
                     <div class="col-md-4 col-sm-6">
                         <div class="product">
                             <div class="image">
@@ -96,9 +97,7 @@ _________________________________________________________ -->
             {# display navigation #}
 
         </div>
-            <div class="navigation text-center">
-                {{ knp_pagination_render(locations) }}
-            </div>
+
     </div>
 
         </div>
@@ -126,7 +125,7 @@ _________________________________________________________ -->
                         <li>
                             {#<a href=""><i class="fa fa-user"></i> Mon profile</a>#}
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        <li><a href="{{ path('fos_user_profile_edit') }}">
+                        <li><a href="{{ path('editetd', { 'user': user }) }}">
                                 <i class="fa fa-user"></i>  profile : {{ app.user.username }}
                             </a>
                         </li>
@@ -145,21 +144,28 @@ _________________________________________________________ -->
                             <li class="active">
                                 <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
                             </li>
-                            <li>
-                                <a href=""><i class="fa fa-user"></i> Mon profile</a>
-                            </li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li><a href="{{ path('editparti', { 'user': user }) }}">
+                                        <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 {% endif %}
-                {% if  is_granted('ROLE_PRO') %}
+                {% if  is_granted('ROLE_PROFESSIONNEL') %}
                     <div class="panel-body">
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active">
                                 <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
                             </li>
-                            <li>
-                                <a href=""><i class="fa fa-user"></i> Mon profile</a>
-                            </li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li><a href="{{ path('editpro', { 'user': user }) }}">
+                                        <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                                    </a>
+                                </li>
+                            {% endif %}
+
                         </ul>
                     </div>
                 {% endif %}

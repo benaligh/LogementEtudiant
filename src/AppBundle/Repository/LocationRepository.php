@@ -10,18 +10,35 @@ namespace AppBundle\Repository;
  */
 class LocationRepository extends \Doctrine\ORM\EntityRepository
 {
-//    public function getLocationsValid($status)
-//    {
-//        $query = $this->createQueryBuilder('loc')
-//            ->where('loc.status == 1')
-//            ->setParameters(
-//                array(
-//                    'status' => $status,
-//
-//                )
-//            )
-//            ->getQuery();
-//        return $query->getResult();
-//
-//    }
+    public function getLocationsValid()
+    {
+        $query = $this->createQueryBuilder('loc')
+            ->where('loc.status = 1')
+            ->getQuery();
+        return $query->getResult();
+
+    }
+    public function searchby($prixmax,$type,$equipement,$piece,$region)
+    {
+        $prixmin=0;
+
+        $query= $this->createQueryBuilder('p')
+            ->where('p.prix<=:prixmax')
+            ->andWhere('p.prix>=:prixmin')
+            ->orWhere('p.type= :type')
+            ->orWhere('p.equipement= :equipement')
+            ->orWhere('p.piece= :piece')
+            ->orWhere('p.region= :region')
+            ->setParameters(array(
+                    'prixmax'=> $prixmax ,
+                    'prixmin'=> $prixmin,
+                    'type'=> $type,
+                    'equipement'=> $equipement,
+                    'piece'=> $piece,
+                    'region'=> $region,
+
+                )
+            )
+            ->getQuery();
+        return $query->getResult();}
 }

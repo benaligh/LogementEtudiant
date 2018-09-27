@@ -1,15 +1,59 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}
+    <header>
+        <div class="navbar-affixed-top" data-spy="affix" data-offset-top="200">
 
+            <div class="navbar navbar-default yamm" role="navigation" id="navbar">
+
+                <div class="row">
+
+                    <div class="navbar-buttons">
+
+                        <button type="button" class="navbar-toggle btn-template-main" data-toggle="collapse" data-target="#navigation">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-align-justify"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--/.navbar-header -->
+
+                <div class="navbar-collapse collapse" id="navigation">
+                    <a class="nav navbar-nav navbar-left" href="#">
+                        <img src="{{asset("img/colocation.jpg")}}" alt="Colocation logo" style="width:30%;" class="hidden-xs hidden-sm">
+                    </a>
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown use-yamm yamm-fw">
+                            <a href="{{ path('location_new') }}">Déposer une annonce</a>
+
+
+                        </li>
+                        <li class="">
+                        <a href="{{ path('location_index') }}">Back to the list</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('fos_user_security_logout')}}" class="" >se déconnecter</a>
+                        </li>
+                        <!-- ========== FULL WIDTH MEGAMENU ================== -->
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+
+                <!-- /#navbar -->
+            </div>
+            <!-- *** NAVBAR END *** -->
+        </div>
+    </header>
+
+{% endblock %}
 {% block body %}
 <div id="heading-breadcrumbs">
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <h1>Edit Annonce</h1>
-                <li>
-                    <a href="{{ path('location_index') }}">Back to the list</a>
-                </li>
+                <h1 >Modifier Annonce</h1>
+
             </div>
             <div class="col-md-5">
 

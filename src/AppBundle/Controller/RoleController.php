@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,7 +21,7 @@ class RoleController extends Controller
     public function indexAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_ADMIN')) {
-            return $this->forward('AppBundle:Location:index');
+            return $this->forward('AppBundle:Location:adminLocation');
         }
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_ETUDIANT')) {
             return $this->forward('AppBundle:Location:index');
@@ -28,7 +29,7 @@ class RoleController extends Controller
         if ($this->get('security.authorization_checker')->IsGranted('ROLE_PARTICULIER')) {
             return $this->forward('AppBundle:Location:index');
         }
-        if ($this->get('security.authorization_checker')->IsGranted('ROLE_PRO')) {
+        if ($this->get('security.authorization_checker')->IsGranted('ROLE_PROFESSIONNEL')) {
             return $this->forward('AppBundle:Location:index');
         } else {
             return $this->render('AppBundle:Role:homepage.html.twig');
@@ -92,4 +93,64 @@ class RoleController extends Controller
         return $this->render('AppBundle:Role:login_success.html.twig');
     }
 
+    /**
+     * @Route("/editetd/{user}",name="editetd")
+     */
+    public function editProfileAction(Request $request, User $user)
+    {
+        $editForm = $this->createForm('AppBundle\Form\RegistreEtdType', $user);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('location_index');
+
+        }
+
+        return $this->render('AppBundle:Users:editEtd.html.twig', array(
+            'edit_form' => $editForm->createView(),
+        ));
+    }
+    /**
+ * @Route("/editpro/{user}",name="editpro")
+ */
+    public function editProAction(Request $request, User $user)
+    {
+        $editForm = $this->createForm('AppBundle\Form\RegistreProfessionnelType', $user);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('location_index');
+
+        }
+
+        return $this->render('AppBundle:Users:editPro.html.twig', array(
+            'edit_form' => $editForm->createView(),
+        ));
+    }
+    /**
+     * @Route("/editparti/{user}",name="editparti")
+     */
+    public function editPartiAction(Request $request, User $user)
+    {
+        $editForm = $this->createForm('AppBundle\Form\RegistreParticulierType', $user);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('location_index');
+
+        }
+
+        return $this->render('AppBundle:Users:editParti.html.twig', array(
+            'edit_form' => $editForm->createView(),
+        ));
+    }
 }

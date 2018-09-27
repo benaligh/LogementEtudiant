@@ -131,12 +131,17 @@ _________________________________________________________ -->
                                 <li class="active">
                                     <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
                                 </li>
-                                <li>
-                                    <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>
-                                </li>
+                                {#<a href=""><i class="fa fa-user"></i> Mon profile</a>#}
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li class=""><a href="{{ path('editetd', { 'user': app.user.id }) }}">
+                                            <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>
+                                    </li>
+                                {% endif %}
+
 
                             </ul>
                         </div>
@@ -159,9 +164,12 @@ _________________________________________________________ -->
                                 <li class="active">
                                     <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
                                 </li>
-                                <li>
-                                    <a href=""><i class="fa fa-user"></i> Mon profile</a>
-                                </li>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li><a href="{{ path('editpro', { 'user': user }) }}">
+                                            <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     {% endif %}

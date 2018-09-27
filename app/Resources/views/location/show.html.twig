@@ -79,13 +79,15 @@
                     </blockquote>
                     <h3>{{ location.titre }}</h3>
 
-                    <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">lire la suite ...
+                    <p class="Plus de description "><a href="#details" class="scroll-to text-uppercase">lire la suite ...
+
                         </a>
                     </p>
 
                     <div class="row" id="productMain">
                         <div class="col-sm-6">
-                            <p style="color: #38a7bb">Publié le {% if location.datePublication %}{{ location.datePublication|date('m/d/Y') }}{% endif %}</p>
+                            <p style="color: #38a7bb">Publié
+                                le {% if location.datePublication %}{{ location.datePublication|date('m/d/Y') }}{% endif %}</p>
 
                             <div id="image">
                                 <img src="{{ asset('uploads/annonce/'~ location.photo ) }}"
@@ -108,29 +110,53 @@
 
                                     </div>
 
-                                    <p class="price"> </p>
+                                    <p class="price"></p>
 
-                                    <h5>{{ location.user.nom }} {{ location.user.prenom }}</h5><br>
-                                    <h5>{{ location.user.telephone }}</h5> <br>
-                                    <h5> {{ location.user.email }}</h5><br>
-                                   <h5> {{ location.user.ecole }}<br></h5>
-                                   <h5>{{ location.user.adresse }}</h5>
+                                    {% for role in location.user.roles %}
+                                    {% if role == "ROLE_ETUDIANT" %}
+                                        etudiant
+                                    <h5><i class="fa fa-user"></i>
+                                        : {{ location.user.civilite }} {{ location.user.nom }}  {{ location.user.prenom }}
+                                        <br></h5>
+                                    <h5><i class="fa fa-mobile-phone" href="tel:+216{{ location.user.telephone }}"></i>
+                                        : {{ location.user.telephone }} <br></h5>
+                                    <a class="btn btn-facebook" href="tel:{{ location.user.telephone }} ">Appeler
+                                        maintenant </a>
+                                    <h5><i class="fa fa-envelope"></i> :{{ location.user.email }}<br></h5>
+                                    <a class="btn btn-facebook" href="mailto: {{ location.user.email }} ">Envoyer un
+                                        email maintenant </a>
+                                    <h5><i class="fa fa-university"></i> : {{ location.user.ecole }}<br></h5>
+                                    <h5><i class="fa fa-map-marker"></i> :{{ location.user.adresse }}</h5>
 
+                                    {% elseif role == "ROLE_PRO" %}
+                                        pro
+                                        <h5><i class="fa fa-user"></i>
+                                            : {{ location.user.nomgroup }}
+                                            <br></h5>
+                                        <h5><i class="fa fa-mobile-phone" href="tel:+216{{ location.user.telephone }}"></i>
+                                            : {{ location.user.telephone }} <br></h5>
+                                        <a class="btn btn-facebook" href="tel:{{ location.user.telephone }} ">Appeler
+                                            maintenant </a>
+                                        <h5><i class="fa fa-envelope"></i> :{{ location.user.email }}<br></h5>
+                                        <a class="btn btn-facebook" href="mailto: {{ location.user.email }} ">Envoyer un
+                                            email maintenant </a>
+                                        <h5><i class="fa fa-map-marker"></i> :{{ location.user.adresse }}</h5>
 
-
-
-
-
-
-
-
-                                    <p class="text-center">
-                                        <button type="submit" class="btn btn-template-main"><i
-                                                    class="fa fa-heart-o"></i> Ajouter au favoris
-                                        </button>
-
-                                    </p>
-
+                                    {% elseif role == "ROLE_PARTICULIER" %}
+                                        particulier
+                                        <h5><i class="fa fa-user"></i>
+                                            : {{ location.user.civilite }} {{ location.user.nom }}  {{ location.user.prenom }}
+                                            <br></h5>
+                                        <h5><i class="fa fa-mobile-phone" href="tel:+216{{ location.user.telephone }}"></i>
+                                            : {{ location.user.telephone }} <br></h5>
+                                        <a class="btn btn-facebook" href="tel:{{ location.user.telephone }} ">Appeler
+                                            maintenant </a>
+                                        <h5><i class="fa fa-envelope"></i> :{{ location.user.email }}<br></h5>
+                                        <a class="btn btn-facebook" href="mailto: {{ location.user.email }} ">Envoyer un
+                                            email maintenant </a>
+                                        <h5><i class="fa fa-map-marker"></i> :{{ location.user.adresse }}</h5>
+                                    {% endif %}
+                                    {% endfor %}
                                 </form>
                             </div>
 
@@ -141,28 +167,27 @@
                         <table class="table">
                             <h4>Descriptif général</h4>
                             <tr>
-                                <td><i class="fa fa-bed" aria-hidden="true"></i>TYPE DE LOGEMENt</td>
-                                <td>ÉTAT</td>
-                                <td>Piéce</td>
-                                <td>SURFACE</td>
-                                <td><i class="fa fa-asterisk" aria-hidden="true"></i>Equipement</td>
-                                <td><i class="fa fa-calendar" aria-hidden="true"></i>
-                                    disponible
+                                <td class="text-center"><i class="fa fa-bed" aria-hidden="true"></i></td>
+                                <td class="text-center">Etat</td>
+                                <td class="text-center">Nombre de Piéces</td>
+                                <td class="text-center">Surface</td>
+                                <td class="text-center"></i>Equipement</td>
+                                <td class="text-center"><i class="fa fa-calendar" aria-hidden="true"></i>
                                 </td>
-                                <td><i class="fa fa-home" aria-hidden="true"></i>Adresse</td>
-                                <td><i class="fa fa-map-marker" aria-hidden="true"></i>Région</td>
+                                <td class="text-center"><i class="fa fa-home" aria-hidden="true"></i></td>
+                                <td class="text-center"><i class="fa fa-map-marker" aria-hidden="true"></i></td>
 
                             </tr>
 
                             <tr>
-                                <td>{{ location.type }}</td>
-                                <td>{{ location.etat }}</td>
-                                <td>{{ location.piece }} piéces</td>
-                                <td>à partir de {{ location.surface }} m²</td>
-                                <td>{{ location.equipement }}</td>
-                                <td>{% if location.dateDisp %} à partir de {{ location.dateDisp|date('m/d/Y') }}{% endif %}</td>
-                                <td>{{ location.adresse }}</td>
-                                <td>{{ location.region }}</td>
+                                <td class="text-center">{{ location.type }}</td>
+                                <td class="text-center">{{ location.etat }}</td>
+                                <td class="text-center">{{ location.piece }} piéces</td>
+                                <td class="text-center"> {{ location.surface }} m²</td>
+                                <td class="text-center">{{ location.equipement }}</td>
+                                <td class="text-center">{% if location.dateDisp %} à partir de {{ location.dateDisp|date('m/d/Y') }}{% endif %}</td>
+                                <td class="text-center">{{ location.adresse }}</td>
+                                <td class="text-center">{{ location.region }}</td>
                             </tr>
                         </table>
 
@@ -186,24 +211,31 @@
                         <h3 class="panel-title">Mon section</h3>
                     </div>
 
-                    <div class="panel-body">
 
-                        <ul class="nav nav-pills nav-stacked">
-                            <li>
-                                <a href="{{ path('location_index') }}"><i class="fa fa-list"></i> Mes annonces</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-user"></i> Mon profile</a>
-                            </li>
-                            <li class="active">
-                                <a href="{{ path('location_search') }}"><i class="fa fa-search"></i> Les annonces </a>
-                            </li>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li >
+                                    <a href="{{ path('location_index')}}"><i class="fa fa-list"></i> Mes annonces</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('listfavoris')}}"><i class="fa fa-heart"></i> Mes favoris</a>
+                                </li>
+                                <li>
+                                    {#<a href=""><i class="fa fa-user"></i> Mon profile</a>#}
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li><a href="{{ path('editetd', { 'user':  app.user}) }}">
+                                        <i class="fa fa-user"></i>  profile : {{ app.user.username }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                                </li>
+                                <li class="active">
+                                    <a href="{{ path('location_search')}}"><i class="fa fa-search"></i> Les annonces</a>
+                                </li>
 
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+
 
                 </div>
                 <!-- /.col-md-3 -->
